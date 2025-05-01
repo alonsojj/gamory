@@ -4,30 +4,32 @@ import fs from "fs";
 const jsonPath = "./src/database/User.json";
 let db = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
 let id = 1;
-function loginHandler(req, res) {
-  const userLogin = req.body;
-  const user = db.find(
-    (user) => user.name == userLogin.name && verifyPsw(userLogin.psw, user.psw)
-  );
+const loginHandler = async (req, res) => {
+  const { email, password } = req.body;
+  const user = db.find((user) => user.email === email);
   if (!user) {
-    return res.status(401).json({ error: "Senha ou Usuario Incorreto" });
+    return res.status(401).json({ error: "Email invalido" });
+  }
+  const isValid = await verifyPsw(password, user.password);
+  if (!isValid) {
+    return res.status(401).json({ error: "Senha invalida" });
   }
   const newToken = createToken(user);
-  res.status(200).json(newToken);
-}
-async function registerHandler(req, res) {
+  res.status(200).json({ token: newToken }).cookie("auth", newToken);
+};
+const registerHandler = async (req, res) => {
   const newUser = {
     id,
-    name: req.body.name,
-    psw: await hashPsw(req.body.psw),
+    email: req.body.email,
+    password: await hashPsw(req.body.password),
   };
   id++;
   db.push(newUser);
   writeDB(db);
-  res.status(200).json({ message: "Usuario cadastrado" });
-}
+  res.status(201).json({ message: "Usuario cadastrado" });
+};
 const writeDB = (data) => {
-  fs.writeFileSync(jsonPath, JSON.stringify(data));
+  fs.writeFileSync(jsonPath, JSON.stringify(data, null, 2));
 };
 
 export { loginHandler, registerHandler };

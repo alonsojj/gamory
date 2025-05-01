@@ -1,7 +1,7 @@
 import { verifyToken } from "../services/authService.js";
 
-function authMiddleware(req, res, next) {
-  const token = req.headers.authorization?.split(" ")[1];
+const authMiddleware = (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1] | req.cookie.auth;
 
   if (!token) {
     return res.status(401).json({ error: "Token não fornecido" });
@@ -12,6 +12,6 @@ function authMiddleware(req, res, next) {
   }
   req.user = decoded;
   next();
-}
+};
 
 export default authMiddleware;
