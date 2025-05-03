@@ -15,7 +15,10 @@ const loginHandler = async (req, res) => {
     return res.status(401).json({ error: "Senha invalida" });
   }
   const newToken = createToken(user);
-  res.status(200).json({ token: newToken }).cookie("auth", newToken);
+  res
+    .status(200)
+    .cookie("auth", newToken, { maxAge: 1 * 60 * 60 * 1000, httpOnly: true })
+    .json({ token: newToken });
 };
 const registerHandler = async (req, res) => {
   const newUser = {
