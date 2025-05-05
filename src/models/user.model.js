@@ -20,7 +20,7 @@ export default (sequelize, DataTypes) => {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV1,
       },
-      nickName: {
+      nickname: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
@@ -61,9 +61,6 @@ export default (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING(64),
         allowNull: false,
-        validate: {
-          is: /^[0-9a-f]{64}$/i,
-        },
       },
     },
     {

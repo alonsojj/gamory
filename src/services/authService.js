@@ -2,9 +2,10 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 const JWT_SECRET = process.env.JWT_SECRET || "secret-key-here";
 const TOKEN_EXPIRY = "1h";
+const SALT_ROUNDS = 10;
 
 const hashPsw = async (password) => {
-  const salt = await bcrypt.genSalt();
+  const salt = await bcrypt.genSalt(SALT_ROUNDS);
   return await bcrypt.hash(password, salt);
 };
 const verifyPsw = async (password, hash) => {

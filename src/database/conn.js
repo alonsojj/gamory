@@ -23,8 +23,8 @@ const sequelize = new Sequelize(
           },
   }
 );
-const Rate = rateModel(sequelize, DataTypes);
-const User = userModel(sequelize, DataTypes);
+export const Rate = rateModel(sequelize, DataTypes);
+export const User = userModel(sequelize, DataTypes);
 User.hasMany(Rate, { foreignKey: "userId" });
 Rate.belongsTo(User, { foreignKey: "userId" });
 export const connect = async () => {
