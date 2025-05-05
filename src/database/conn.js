@@ -1,5 +1,7 @@
-import { Sequelize } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 import config from "../config/config.js";
+import rateModel from "../models/rate.model.js";
+import userModel from "../models/user.model.js";
 
 const sequelize = new Sequelize(
   config.database,
@@ -21,6 +23,10 @@ const sequelize = new Sequelize(
           },
   }
 );
+const Rate = rateModel(sequelize, DataTypes);
+const User = userModel(sequelize, DataTypes);
+User.hasMany(Rate, { foreignKey: "userId" });
+Rate.belongsTo(User, { foreignKey: "userId" });
 export const connect = async () => {
   try {
     await sequelize.authenticate();
