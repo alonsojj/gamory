@@ -4,8 +4,11 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node ./src/server.js",
-    "start:dev": "npx nodemon ./src/server.js"
+    "start": "npm run services:up -d && node ./src/server.js",
+    "start:dev": "npm run services:up && npx nodemon ./src/server.js",
+    "services:up": "docker-compose --env-file .env.development up -d",
+    "services:down": "docker-compose down",
+    "services:stop": "docker-compse stop"
   },
   "author": "",
   "license": "ISC",
