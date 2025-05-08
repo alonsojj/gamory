@@ -1,5 +1,5 @@
 "use strict";
-import { Model } from "sequelize";
+import { Model, STRING } from "sequelize";
 
 export default (sequelize, DataTypes) => {
   class User extends Model {
@@ -47,6 +47,9 @@ export default (sequelize, DataTypes) => {
         validate: {
           isDate: true,
         },
+      },
+      biography: {
+        type: STRING(255),
       },
       gender: {
         type: DataTypes.ENUM("M", "W", "O"),
