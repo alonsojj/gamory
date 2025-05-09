@@ -9,6 +9,7 @@
     "services:up": "docker-compose --env-file .env.development up -d",
     "services:down": "docker-compose down",
     "services:stop": "docker-compse stop",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "author": "",
