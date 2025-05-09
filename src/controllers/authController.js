@@ -1,12 +1,11 @@
 import { User } from "../database/conn.js";
 import { createToken, hashPsw, verifyPsw } from "../services/authService.js";
 
-const jsonPath = "./src/database/User.json";
-const loginHandler = async (req, res) => {
-  const { nickname, password } = req.body;
+export const loginHandler = async (req, res) => {
+  const { email, password } = req.body;
   const result = await User.findOne({
     where: {
-      nickname,
+      email,
     },
     attributes: ["id", "nickname", "email", "password"],
   });
@@ -24,25 +23,20 @@ const loginHandler = async (req, res) => {
     .cookie("auth", newToken, { maxAge: 1 * 60 * 60 * 1000, httpOnly: true })
     .json({ token: newToken });
 };
-const registerHandler = async (req, res) => {
-  const { nickname, email, firstName, lastName, birthdate, gender, password } =
-    req.body;
-  const passwordhash = await hashPsw(password);
+export const registerHandler = async (req, res) => {
+  const passwordhash = await hashPsw(req.body.password);
   const newUser = {
-    nickname,
-    email,
-    firstName,
-    lastName,
-    birthDate: new Date(birthdate),
-    gender,
-    email,
+    ...req.body,
+    birthdate: new Date(req.body.birthdate),
     password: passwordhash,
   };
-  const status = await User.create(newUser);
-  if (!status) {
-    res.staus(500).json(JSON.stringify(status));
+  try {
+    await User.create(newUser);
+  } catch (error) {
+    return res.status(400).json({ error });
   }
+
   res.status(201).json({ message: "Usuario cadastrado" });
 };
 
-export { loginHandler, registerHandler };
+export default { loginHandler, registerHandler };

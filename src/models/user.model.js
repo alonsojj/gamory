@@ -41,7 +41,7 @@ export default (sequelize, DataTypes) => {
           isEmail: true,
         },
       },
-      birthDate: {
+      birthdate: {
         type: DataTypes.DATE,
         allowNull: false,
         validate: {
