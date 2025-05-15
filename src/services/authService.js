@@ -1,28 +1,26 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-const JWT_SECRET = process.env.JWT_SECRET || "secret-key-here";
-const TOKEN_EXPIRY = "1h";
-const SALT_ROUNDS = 10;
+import { auth } from "../config/config.js";
 
 export const hashPsw = async (password) => {
-  const salt = await bcrypt.genSalt(SALT_ROUNDS);
+  const salt = await bcrypt.genSalt(auth.saltRounds);
   return await bcrypt.hash(password, salt);
 };
 export const verifyPsw = async (password, hash) => {
   return await bcrypt.compare(password, hash);
 };
-export const createToken = (user) => {
+export const createToken = (userId) => {
   return jwt.sign(
     {
-      userId: user.id,
+      userId,
     },
-    JWT_SECRET,
-    { expiresIn: TOKEN_EXPIRY }
+    auth.jwtSecret,
+    { expiresIn: auth.tokenExpiry }
   );
 };
 export const verifyToken = (token) => {
   try {
-    return jwt.verify(token, JWT_SECRET);
+    return jwt.verify(token, auth.jwtSecret);
   } catch (error) {
     console.error("JWT error", error.message);
     throw error;
