@@ -2,7 +2,7 @@ import { User } from "../database/conn.js";
 import { createToken, hashPsw, verifyPsw } from "../services/authService.js";
 
 export const loginHandler = async (req, res) => {
-  if ((req.cookies && req.cookies.auth) || req.headers.authorization) {
+  if ((req.cookies && req.cookies.auth) || req.headers?.authorization) {
     return res.status(403).json({ error: "Usuario ja logado" });
   }
   const { email, password } = req.body;
