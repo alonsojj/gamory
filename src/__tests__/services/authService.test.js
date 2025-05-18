@@ -15,7 +15,6 @@ jest.unstable_mockModule("jsonwebtoken", () => ({
 }));
 
 const jwt = await import("jsonwebtoken");
-const bcrypt = await import("bcrypt");
 const { createToken, verifyToken } = await import(
   "../../services/authService.js"
 );

@@ -6,11 +6,16 @@ const authMiddleware = (req, res, next) => {
   if (!token) {
     return res.status(401).json({ error: "Token não fornecido" });
   }
-  const decoded = verifyToken(token);
-  if (!decoded) {
-    return res.status(403).json({ error: "Token inválido ou expirado" });
+  try {
+    const decoded = verifyToken(token);
+    if (!decoded) {
+      return res.status(403).json({ error: "Token inválido ou expirado" });
+    }
+    req.user = decoded;
+    console.log(decoded);
+  } catch (error) {
+    res.status(400).json({ error });
   }
-  req.user = decoded;
   next();
 };
 
