@@ -1,0 +1,105 @@
+body {
+  background-color: black;
+}
+.topo {
+  background-image: url("../../assests/images/home/newfundo4.jpg");
+  height: 40dvh;
+}
+h1 {
+  color: aliceblue;
+  font-size: 7.4dvh;
+  position: absolute;
+  margin-left: 2dvh;
+  margin-top: 4dvh;
+}
+h2 {
+  color: aliceblue;
+}
+.topo .a {
+  right: 11dvh;
+}
+.topo .aa {
+  right: 4dvh;
+}
+.topo button:hover {
+  color: rgb(34, 6, 60);
+  transform: scale(1.3);
+}
+.topo .pesquisa {
+  input {
+    position: absolute;
+    top: 7dvh;
+    left: 32dvh;
+    padding: 2dvh;
+    background-color: rgb(34, 6, 60, 0.5);
+    color: aliceblue;
+    font-size: 2dvh;
+    width: 50dvh;
+    border: 2px solid whitesmoke;
+    border-radius: 8px;
+    transition: transform 0.3s, background-color 0.3s;
+    border-radius: 25px;
+  }
+
+  button {
+    position: absolute;
+    top: 8.5dvh;
+    left: 80dvh;
+    background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+
+    border: none;
+  }
+}
+.amigos {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: start;
+  justify-content: space-evenly;
+}
+#container1 {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+}
+#container2 {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+}
+#container3 {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+}
+img {
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
+.botoes button {
+  margin-top: 3px;
+
+  margin: 7px;
+  padding: 8px 20px;
+  background-color: rgb(34, 6, 60, 0.5);
+  font-size: 16px;
+  color: aliceblue;
+  border: none;
+  border-radius: 8px;
+  border: 2px solid white;
+  border-radius: 25px;
+  cursor: pointer;
+}
+.meus-amigos {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: start;
+  justify-content: space-evenly;
+}
+.meus-amigos img {
+  border-radius: 50%;
+  margin-right: 30px;
+}
