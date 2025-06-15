@@ -22,6 +22,11 @@ export default (sequelize, DataTypes) => {
           key: "id",
         },
       },
+      status: {
+        type: DataTypes.ENUM("pending", "accepted", "rejected"),
+        allowNull: false,
+        defaultValue: "pending",
+      },
     },
     { sequelize, modelName: "Friend" }
   );

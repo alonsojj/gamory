@@ -3,11 +3,15 @@ import { verifyPsw } from "../services/authService.js";
 
 export const readUser = async (req, res) => {
   const id = req.params.id ? req.params.id : req.user.userId;
+  const { friendship } = req.query;
   console.log(id);
   try {
+    const includeOptions =
+      friendship === "true" ? [{ association: "friends" }] : [];
     const result = await User.findOne({
       where: { id },
       attributes: { exclude: ["password"] },
+      include: includeOptions, // Adiciona a opção de incluir amizades
     });
     if (!result) {
       return res.status(404).json({ error: "User not found" });
@@ -76,6 +80,22 @@ export const deleteUser = async (req, res) => {
     }
     res.status(200).json({ message: "Sucess delete" });
     console.log("passou", deletedRows);
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+};
+export const queryUser = async (req, res) => {
+  const { nickname } = req.query;
+  try {
+    const result = await User.findAll({
+      where: { [Op.like]: `%${nickname}` },
+      attributes: { exclude: ["password"] },
+    });
+    if (!result) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.status(200).json(result);
+    console.log(result);
   } catch (error) {
     res.status(400).json({ error });
   }
