@@ -146,6 +146,10 @@ body, html {
   color: #ddd;
 }
 
+.Gamory-header{
+    font-size: 1.5rem;
+}
+
 .Gamory-header:hover {
   color: #8f8f8f;
   transition: 0.5s;
@@ -183,8 +187,9 @@ body, html {
   color: white;
   text-decoration: none;
   font-weight: bold;
-  font-size: 1.1rem;
 }
+
+
 
 .search-form {
   display: flex;

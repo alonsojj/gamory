@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #270303;
+  height: 100vh;
+}
+
+.background-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.header {
+  padding: 15px 30px;
+  background-color: rgba(36, 36, 37, 0.4);
+  backdrop-filter: blur(5px);
+}
+
+.header ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.Gamory-header {
+  font-size: 1.5rem;
+}
+
+.Gamory-header:hover,
+.Perfil-header:hover {
+  color: #8f8f8f;
+  transition: 0.5s;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  border-radius: 40px;
+  background-color: rgba(36, 36, 37, 0.4);
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+}
+
+.search-form:hover {
+  background-color: #444;
+  transition: 0.5s;
+}
+
+.search-form input[type="search"] {
+  border: none;
+  padding: 8px;
+  background-color: transparent;
+  color: white;
+  outline: none;
+}
+
+.search-form button {
+  border: none;
+  background-color: transparent;
+  color: white;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* Estilo da página Sobre */
+
+.sobre-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.sobre-box {
+  background-color: rgba(72, 11, 11, 0.7);
+  backdrop-filter: blur(5px);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  transition: background-color 0.3s;
+}
+
+.sobre-box:hover {
+  background-color: rgba(53, 5, 5, 0.8);
+}
+
+.sobre-box h1,
+.sobre-box h2 {
+  margin-top: 0;
+  color: #fff;
+}
+
+.sobre-box p,
+.sobre-box li {
+  color: #ddd;
+}
+
+.sobre-box ul {
+  padding-left: 20px;
+}
+
+.sobre-box li::before {
+  margin-right: 4px;
+}
