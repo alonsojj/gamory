@@ -1,16 +1,25 @@
 import { Rate } from "../database/conn.js";
+import { searchGames } from "../services/igdbService.js";
+
 export const createRate = async (req, res) => {
+  const { gameId, score, commentary } = req.body;
+
   try {
+    const isValidGame = await searchGames(gameId);
+    if (!isValidGame) {
+      return res.status(400).json({ error: "Invalid game ID" });
+    }
+
     const newRate = {
       userId: req.user.userId,
-      gameId: req.body.gameId,
-      score: req.body.score,
-      commentary: req.body.commentary,
+      gameId,
+      score,
+      commentary,
     };
     await Rate.create(newRate);
     res.status(200).json({ message: "Rate created" });
   } catch (error) {
-    res.status(400).json({ error: error });
+    res.status(400).json({ error: error.message });
   }
 };
 export const readRate = async (req, res) => {
@@ -35,11 +44,14 @@ export const readRate = async (req, res) => {
   }
 };
 export const editRate = async (req, res) => {
-  const { score, commentary, gameId } = req.body;
-  if (!score && !commentary)
-    return res.status(401).json({ error: "no fields to update" });
-  if (!gameId) return res.status(401).json({ error: "gameId not provided" });
+  const { gameId, score, commentary } = req.body;
+
   try {
+    const isValidGame = await searchGames(gameId);
+    if (!isValidGame) {
+      return res.status(400).json({ error: "Invalid game ID" });
+    }
+
     const existingRate = await Rate.findOne({
       where: { userId: req.user.userId, gameId },
     });
@@ -47,6 +59,7 @@ export const editRate = async (req, res) => {
     if (!existingRate) {
       return res.status(404).json({ error: "Rate not found" });
     }
+
     await Rate.update(
       { score, commentary },
       { where: { userId: req.user.userId, gameId } }

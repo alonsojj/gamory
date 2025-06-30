@@ -1,4 +1,4 @@
-import { User, Friend } from "../database/conn.js";
+import { Friend } from "../database/conn.js";
 
 export const createFriendship = async (req, res) => {
   const { friendId } = req.body;

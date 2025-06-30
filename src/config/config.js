@@ -15,4 +15,6 @@ export const auth = {
   jwtSecret: process.env.JWT_SECRET,
   saltRounds: Number(process.env.SALT_ROUNDS),
   tokenExpiry: process.env.TOKEN_EXPIRY,
+  clientSecret: process.env.IGDBSECRET,
+  clientId: process.env.IGDBID,
 };
