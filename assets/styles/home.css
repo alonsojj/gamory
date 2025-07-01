@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
 * {
   margin: 0;
@@ -6,10 +6,12 @@
   box-sizing: border-box;
 }
 
-body, html {
-  font-family: 'Poppins', sans-serif;
+body,
+html {
+  font-family: "Poppins", sans-serif;
   height: 100vh;
-  background: url('../../assests/images/home/newfundo4.jpg') no-repeat center center/cover;
+  background: url("../../assests/images/home/newfundo4.jpg") no-repeat center
+    center/cover;
   color: white;
   overflow-x: hidden;
 }
@@ -29,21 +31,16 @@ body, html {
   flex-wrap: wrap;
 }
 
-
 .topo h2 {
   font-size: 1.5rem;
   color: white;
   transition: 0.4s;
   font-weight: bold;
-  
-
 }
-
 
 .topo h2:hover {
   color: #8f8f8f;
   cursor: pointer;
-
 }
 
 /* ---------- BARRA DE PESQUISA ---------- */
@@ -86,7 +83,6 @@ body, html {
   margin: 0 20px;
 }
 
-
 /* ---------- LINKS DO TOPO ---------- */
 .topo a {
   color: rgb(255, 255, 255);
@@ -95,7 +91,6 @@ body, html {
   margin-left: 20px;
   font-size: 1rem;
   font-weight: bold;
-
 }
 
 .topo a:hover {
@@ -126,11 +121,10 @@ body, html {
   gap: 20px;
 }
 
-
 /* ---------- SESSÃO DE JOGOS ---------- */
 .jogos {
   padding: 40px 30px;
-  background-color: rgba(0, 0, 0, 0.);
+  background-color: rgba(0, 0, 0, 0);
   backdrop-filter: blur(4px);
 }
 
@@ -152,7 +146,7 @@ body, html {
   object-fit: cover;
   border-radius: 10px;
   transition: transform 0.3s, filter 0.3s;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .jogos img:hover {

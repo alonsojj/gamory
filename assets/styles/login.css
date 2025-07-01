@@ -98,28 +98,20 @@ body {
 }
 
 .login:hover {
-  background-color: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
-  transition: 0.5s;
+  background-color: #e0e0e0;
 }
 
 .register-link {
-  font-size: 14px;
   text-align: center;
-  margin: 20px 0 15px;
+  margin-top: 20px;
 }
 
-.register-link {
-  text-decoration: none;
+.register-link a {
   color: #fff;
-  font-weight: 500;
+  text-decoration: none;
+  font-weight: 600;
 }
 
-.register-link {
+.register-link a:hover {
   text-decoration: underline;
-}
-
-#form_container .input-box {
-  margin: 15px 0;
 }

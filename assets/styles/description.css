@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
-  background: url('minecraft.jpg') no-repeat center center/cover;
+  background: url("minecraft.jpg") no-repeat center center/cover;
   height: 100vh;
 }
 
@@ -146,8 +147,8 @@ body, html {
   color: #ddd;
 }
 
-.Gamory-header{
-    font-size: 1.5rem;
+.Gamory-header {
+  font-size: 1.5rem;
 }
 
 .Gamory-header:hover {
@@ -176,7 +177,8 @@ body, html {
   gap: 20px;
 }
 
-.Perfil-header {}
+.Perfil-header {
+}
 
 .Perfil-header:hover {
   color: #8f8f8f;
@@ -188,8 +190,6 @@ body, html {
   text-decoration: none;
   font-weight: bold;
 }
-
-
 
 .search-form {
   display: flex;
@@ -273,96 +273,17 @@ body, html {
   padding: 10px;
   border-radius: 6px;
   resize: vertical;
+  min-height: 80px;
   margin-bottom: 10px;
 }
 
-.submit-reply {
-  align-self: flex-end;
-  background-color: #7b0302;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.replies {
-  margin-top: 10px;
-  padding-left: 30px;
-  border-left: 2px solid #444;
-}
-
-.comment-box {
-  background-color: #310505;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 10px;
-  color: #ddd;
-  display: flex;
-  gap: 10px;
-  flex-direction: column;
-}
-
-.comment-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.comment-header img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.comment-username {
-  font-weight: bold;
-  color: #fff;
-}
-
-.comment-content {
-  margin-left: 50px;
-  color: #ccc;
-}
-
-.comment-actions {
-  margin-left: 50px;
-  display: flex;
-  gap: 10px;
-  font-size: 0.9rem;
-  color: #aaa;
-  cursor: pointer;
-}
-
-.comment-actions span:hover {
-  text-decoration: underline;
-  color: #fff;
-}
-
-.reply-box {
-  margin-left: 60px;
-  margin-top: 10px;
-}
-
-.reply-box textarea {
-  background-color: #342d2d;
-  color: white;
-  border: none;
-  padding: 8px;
-  border-radius: 6px;
-  resize: vertical;
-  min-height: 60px;
-  width: 100%;
-  margin-bottom: 5px;
-}
-
-.reply-box textarea:hover {
+.reply-text:hover {
   background-color: #3e2b2b;
   transition: 0.3s;
 }
 
 .reply-box button {
+  align-self: flex-end;
   background-color: #7b0302;
   color: white;
   border: none;

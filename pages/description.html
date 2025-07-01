@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assests/styles/global.css" />
+    <link rel="stylesheet" href="/assests/styles/description.css" />
+    <title>Descrição do Jogo</title>
+  </head>
+  <body>
+    <div class="background-overlay">
+      <header class="header">
+        <div>
+          <ul>
+            <li>
+              <a href="../home/HomeTeste2.html" class="Gamory-header">Gamory</a>
+            </li>
+            <div class="menu-right">
+              <li>
+                <a href="../sobre/sobre.html" class="Perfil-header">Sobre</a>
+              </li>
+              <li>
+                <a href="../perfil/perfil.html" class="Perfil-header">Perfil</a>
+              </li>
+              <li>
+                <form action="#" method="get" class="search-form">
+                  <input
+                    type="search"
+                    name="busca"
+                    placeholder="Pesquisar..."
+                  />
+                  <button type="submit">🔍</button>
+                </form>
+              </li>
+              <li><button class="submit-review-btn">Sair</button></li>
+            </div>
+          </ul>
+        </div>
+      </header>
+
+      <div class="main-container">
+        <div class="game-info">
+          <img
+            class="game-image"
+            src="CAMINHO-DA-IMAGEM.jpg"
+            alt="Imagem do jogo"
+          />
+          <div class="game-text">
+            <h1 class="game-title">Nome do Jogo</h1>
+            <p class="game-description">Descrição vinda do backend...</p>
+            <div class="star-rating" id="starRating">
+              <span class="star" data-value="1">&#9733;</span>
+              <span class="star" data-value="2">&#9733;</span>
+              <span class="star" data-value="3">&#9733;</span>
+              <span class="star" data-value="4">&#9733;</span>
+              <span class="star" data-value="5">&#9733;</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="comments-section">
+          <h2>Comentários</h2>
+          <button class="toggle-review-btn" onclick="toggleReviewBox()">
+            Escrever resenha
+          </button>
+
+          <div class="review-box" id="reviewBox" style="display: none">
+            <textarea
+              class="review-text"
+              placeholder="Escreva sua resenha..."
+            ></textarea>
+            <button class="submit-review-btn">Enviar</button>
+          </div>
+
+          <div class="comments-list" id="commentsList"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="description.js"></script>
+  </body>
+</html>

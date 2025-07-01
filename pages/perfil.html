@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer src="script2.js"></script>
+    <link rel="stylesheet" href="/assests/styles/perfil.css" />
+    <title>Perfil</title>
+  </head>
+  <body>
+    <div class="topo">
+      <img
+        src="../../assests/images/perfil/perfilDegamer.jpg"
+        ;
+        align="left"
+        width="300px"
+        height="250px"
+      />
+      <br />
+      <h1 class="nome">Nome</h1>
+      <a href="AlteracaoDeDadosdoPerfil.html">
+        <button class="perfil" onclick="MostrarPagina('perfil')">perfil</button>
+      </a>
+
+      <button class="amigos" onclick="MostrarAmigos('amigos')">amigos</button>
+
+      <a href="PaginaHome.html">
+        <button class="home" onclick="MostrarHome('home')">home</button>
+      </a>
+
+      <br /><br />
+      <br />
+    </div>
+
+    <p class="MJ">Meus jogos</p>
+
+    <div class="jogos">
+      <button class="new-jogos" onclick="MostraJogos()">+</button>
+      <img
+        src="../../assests/images/home/jogo1.webp"
+        width="100px"
+        height="130px"
+      />
+      <img
+        src="../../assests/images/home/jogo2.jpg"
+        width="100px"
+        height="130px"
+      />
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        // Log para depuração do token
+        console.log("Cookie auth:", document.cookie);
+        const token = localStorage.getItem("token");
+        console.log("Token localStorage:", token);
+
+        async function fetchUser() {
+          try {
+            const response = await axios.get(
+              "http://localhost:8000/api/user/me",
+              {
+                withCredentials: true,
+              }
+            );
+            return response.data;
+          } catch (error) {
+            alert("Erro ao buscar dados do usuário.");
+            console.error("Erro ao buscar usuário:", error);
+            return null;
+          }
+        }
+
+        async function updateUser(data) {
+          try {
+            const response = await axios.put(
+              "http://localhost:8000/api/user/me",
+              data,
+              {
+                withCredentials: true,
+              }
+            );
+            alert("Dados atualizados com sucesso!");
+            return response.data;
+          } catch (error) {
+            alert("Erro ao atualizar dados do usuário.");
+            console.error("Erro ao atualizar usuário:", error);
+            return null;
+          }
+        }
+
+        const user = await fetchUser();
+        if (user && user.nickname) {
+          document.querySelector(".nome").textContent = user.nickname;
+        }
+
+        const form = document.getElementById("edit-user-form");
+        if (form) {
+          form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const data = {};
+            for (const [key, value] of formData.entries()) {
+              if (value) data[key] = value;
+            }
+            await updateUser(data);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
