@@ -1,50 +1,19 @@
+@import url("../global/global.css");
+@import url("../global/header.css");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 body,
 html {
   font-family: "Poppins", sans-serif;
   height: 100vh;
-  background: url("../../assests/images/home/newfundo4.jpg") no-repeat center
+  background: url("../../images/home/newfundo4.jpg") no-repeat center
     center/cover;
   color: white;
   overflow-x: hidden;
 }
 
-/* ---------- TOPO / HEADER ---------- */
-.topo {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 30px;
-  background-color: rgba(36, 36, 37, 0.8);
-  backdrop-filter: blur(9px);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.topo h2 {
-  font-size: 1.5rem;
-  color: white;
-  transition: 0.4s;
-  font-weight: bold;
-}
-
-.topo h2:hover {
-  color: #8f8f8f;
-  cursor: pointer;
-}
-
 /* ---------- BARRA DE PESQUISA ---------- */
-.pesquisa {
+.search-form {
   display: flex;
   align-items: center;
   background-color: rgba(36, 36, 37, 0.4);
@@ -55,11 +24,11 @@ html {
   transition: background-color 0.3s;
 }
 
-.pesquisa:hover {
+.search-form:hover {
   background-color: rgba(80, 80, 80, 0.5);
 }
 
-.pesquisa input {
+.search-form input {
   border: none;
   padding: 10px 16px;
   background: transparent;
@@ -68,7 +37,7 @@ html {
   width: 100%;
 }
 
-.pesquisa button {
+.search-form button {
   background: none;
   border: none;
   padding: 10px 16px;
@@ -77,7 +46,7 @@ html {
   cursor: pointer;
 }
 
-.pesquisa {
+.search-form {
   width: 300px;
   max-width: 100%;
   margin: 0 20px;

@@ -7,7 +7,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../assests/styles/login.css" />
+    <link rel="stylesheet" href="../assets/styles/pages/login.css" />
     <title>Cadastro</title>
   </head>
   <body>
@@ -16,6 +16,10 @@
         <form id="cadastro-form">
           <h1>Criar Conta</h1>
 
+          <div class="input-box">
+            <input placeholder="Nickname" type="text" id="nickname" required />
+            <i class="bx bxs-user"></i>
+          </div>
           <div class="input-box">
             <input
               placeholder="Primeiro Nome"
@@ -66,10 +70,7 @@
             <i class="bx bxs-lock-alt"></i>
           </div>
 
-          <div class="input-box">
-            <input placeholder="Nickname" type="text" id="nickname" required />
-            <i class="bx bxs-user"></i>
-          </div>
+
 
           <div class="remember-forgot">
             <label>
@@ -86,7 +87,7 @@
           <button id="btn-cadastrar" class="login">Cadastrar</button>
 
           <div class="register-link">
-            <p>Já tem uma conta? <a href="login.html">Entrar</a></p>
+            <p>Já tem uma conta? <a href="login">Entrar</a></p>
           </div>
         </form>
       </main>

@@ -3,24 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../assests/styles/home.css" />
+    <link rel="stylesheet" href="../assets/styles/pages/home.css" />
     <title>Home</title>
   </head>
   <body>
-    <div class="topo">
-      <h2>Gamory</h2>
-
-      <div class="pesquisa">
-        <input type="text" placeholder="Pesquisar..." />
-        <button>🔍</button>
-      </div>
-
-      <div class="acoes">
-        <a href="../sobre/sobre.html">Sobre</a>
-        <a href="../perfil/perfil.html">Perfil</a>
-        <button class="aa">Sair</button>
-      </div>
-    </div>
+    <header class="header">
+      <nav>
+        <ul>
+          <li>
+            <a href="../home/HomeTeste2.html" class="Gamory-header">Gamory</a>
+          </li>
+          <div class="menu-right">
+            <li>
+              <form action="#" method="get" class="search-form">
+                <input type="search" name="busca" placeholder="Pesquisar..." />
+                <button type="submit">🔍</button>
+              </form>
+            </li>
+            <li>
+              <a href="../sobre/sobre.html" class="Perfil-header">Sobre</a>
+            </li>
+            <li>
+              <a href="../perfil/perfil.html" class="Perfil-header">Perfil</a>
+            </li>
+            <li><button class="submit-review-btn">Sair</button></li>
+          </div>
+        </ul>
+      </nav>
+    </header>
 
     <div class="jogos">
       <p>Mais populares</p>
