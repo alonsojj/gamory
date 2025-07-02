@@ -10,7 +10,7 @@ export const searchGamesController = async (req, res) => {
   }
 
   try {
-    let games = await searchGames({ name, id });
+    const games = await searchGames({ name, id });
     res.status(200).json(games);
   } catch (error) {
     res.status(500).json({ error: error.message });
