@@ -1,7 +1,19 @@
 import { verifyToken } from "../services/authService.js";
 
 const authMiddleware = (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")[1] || req.cookies?.auth;
+  let token = null;
+  console.log("Authorization header:", req.headers.authorization);
+  console.log("Auth cookie:", req.cookies?.auth);
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer ")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  } else if (req.cookies?.auth) {
+    token = req.cookies.auth;
+  }
+  console.log("Token usado:", token);
 
   if (!token) {
     return res.status(401).json({ error: "Token não fornecido" });
@@ -12,9 +24,10 @@ const authMiddleware = (req, res, next) => {
       return res.status(403).json({ error: "Token inválido ou expirado" });
     }
     req.user = decoded;
-    console.log(decoded);
+    console.log("Token decodificado:", decoded);
   } catch (error) {
-    res.status(400).json({ error });
+    console.error("Erro ao verificar token:", error);
+    return res.status(400).json({ error: error.message });
   }
   next();
 };
