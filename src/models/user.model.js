@@ -57,9 +57,7 @@ export default (sequelize, DataTypes) => {
       },
       profileImg: {
         type: DataTypes.STRING,
-        validate: {
-          isUrl: true,
-        },
+        defaultValue: "/assets/images/home/default-profile.jpg",
       },
       password: {
         type: DataTypes.STRING(64),
