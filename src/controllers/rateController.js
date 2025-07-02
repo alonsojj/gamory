@@ -1,11 +1,12 @@
 import { Rate } from "../database/conn.js";
 import { searchGames } from "../services/igdbService.js";
+import { User } from "../database/conn.js";
 
 export const createRate = async (req, res) => {
   const { gameId, score, commentary } = req.body;
 
   try {
-    const isValidGame = await searchGames(gameId);
+    const isValidGame = await searchGames({ id: gameId });
     if (!isValidGame) {
       return res.status(400).json({ error: "Invalid game ID" });
     }
@@ -26,19 +27,29 @@ export const readRate = async (req, res) => {
   try {
     const { userId, gameId, score, order } = req.query;
     const where = {};
-    if (!gameId && !userId)
-      return res.status(401).json({ error: "gameId and userId not provided" });
-    if (userId) where.userId = userId;
     if (gameId) where.gameId = gameId;
+    if (userId) where.userId = userId;
     if (score) where.score = score;
 
-    const options = { where };
+    const options = {
+      where,
+      include: [{ model: User, attributes: ["nickname", "profileImg"] }],
+    };
     if (order === "desc" || order === "asc") {
       options.order = [["score", order]];
     }
 
     const rates = await Rate.findAll(options);
-    res.status(200).json(rates);
+    const result = rates.map((rate) => ({
+      id: rate.id,
+      userId: rate.userId,
+      user: rate.User.nickname || "Usuário",
+      photo: rate.User.profileImg,
+      gameId: rate.gameId,
+      rating: rate.score,
+      comment: rate.commentary,
+    }));
+    res.status(200).json(result);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -47,7 +58,7 @@ export const editRate = async (req, res) => {
   const { gameId, score, commentary } = req.body;
 
   try {
-    const isValidGame = await searchGames(gameId);
+    const isValidGame = await searchGames({ id: gameId });
     if (!isValidGame) {
       return res.status(400).json({ error: "Invalid game ID" });
     }
