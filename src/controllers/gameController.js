@@ -1,4 +1,4 @@
-import { searchGames } from "../services/igdbService.js";
+import { searchGames, getPopularGames } from "../services/igdbService.js";
 
 export const searchGamesController = async (req, res) => {
   const { name, id } = req.query;
@@ -10,7 +10,15 @@ export const searchGamesController = async (req, res) => {
   }
 
   try {
-    const games = await searchGames({ name, id });
+    let games = await searchGames({ name, id });
+    res.status(200).json(games);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+export const getPopularGamesController = async (req, res) => {
+  try {
+    const games = await getPopularGames();
     res.status(200).json(games);
   } catch (error) {
     res.status(500).json({ error: error.message });

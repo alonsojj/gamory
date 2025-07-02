@@ -33,9 +33,9 @@ export const searchGames = async ({ name, id }) => {
 
   let body;
   if (name) {
-    body = `fields id, name, genres.name, platforms.name, summary, cover.image_id; search "${name}"; limit 10;`;
+    body = `fields id, name, genres.name, platforms.name, summary, cover.image_id, artworks.image_id, category; search "${name}"; where category = 0; limit 10;`;
   } else if (id) {
-    body = `fields id, name, genres.name, platforms.name, summary, cover.image_id; where id = ${id};`;
+    body = `fields id, name, genres.name, platforms.name, summary, cover.image_id, artworks.image_id, category; where id = ${id} & category = 0;`;
   } else {
     throw new Error("Provide either 'name' or 'id' to search");
   }
@@ -50,6 +50,10 @@ export const searchGames = async ({ name, id }) => {
       coverUrl: game.cover
         ? `${IMAGE_BASE_URL}t_cover_big/${game.cover.image_id}.jpg`
         : null,
+      bannerUrl:
+        game.artworks && game.artworks.length > 0
+          ? `${IMAGE_BASE_URL}t_1080p/${game.artworks[0].image_id}.jpg`
+          : null,
     }));
 
     return games;
@@ -60,6 +64,33 @@ export const searchGames = async ({ name, id }) => {
       return searchGames({ name, id });
     }
     console.error("Failed to fetch data from IGDB:", error.message);
+    throw error;
+  }
+};
+
+export const getPopularGames = async () => {
+  if (!accessToken) {
+    await authenticate();
+  }
+  const body = `fields id, name, cover.image_id; where category = 0 & total_rating_count > 0; sort total_rating_count desc; limit 15;`;
+  try {
+    const response = await axios.post(`${IGDB_BASE_URL}/games`, body, {
+      headers: getHeaders(),
+    });
+    return response.data.map((game) => ({
+      id: game.id,
+      name: game.name,
+      coverUrl: game.cover
+        ? `${IMAGE_BASE_URL}t_cover_big/${game.cover.image_id}.jpg`
+        : null,
+    }));
+  } catch (error) {
+    if (error.response?.status === 401) {
+      console.warn("Access token expired. Re-authenticating...");
+      await authenticate();
+      return getPopularGames();
+    }
+    console.error("Failed to fetch popular games from IGDB:", error.message);
     throw error;
   }
 };
