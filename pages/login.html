@@ -36,43 +36,13 @@
         <div class="register-link">
           <p>
             Não tem uma conta?
-            <a href="cadastro.html" id="cadastro-link">Cadastre-se</a>
+            <a href="cadastro" id="cadastro-link">Cadastre-se</a>
           </p>
         </div>
       </form>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        document.querySelector("form").addEventListener("submit", async (e) => {
-          e.preventDefault();
-
-          const email = document.querySelector('input[type="email"]').value;
-          const password = document.querySelector(
-            'input[type="password"]'
-          ).value;
-
-          try {
-            const response = await axios.post(
-              "http://localhost:8000/api/login",
-              {
-                email,
-                password,
-              },
-              { withCredentials: true }
-            );
-
-            if (response.status === 200) {
-              window.location.href = "/perfil";
-            } else {
-              alert("Usuário ou senha inválidos.");
-            }
-          } catch (error) {
-            alert("Erro ao conectar com o servidor.");
-          }
-        });
-      });
-    </script>
+    <script src="../assets/js/login.js"></script>
   </body>
 </html>

@@ -70,8 +70,6 @@
             <i class="bx bxs-lock-alt"></i>
           </div>
 
-
-
           <div class="remember-forgot">
             <label>
               <input type="radio" name="gender" value="W" required /> Feminino
@@ -92,49 +90,7 @@
         </form>
       </main>
     </div>
-    <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-      document
-        .getElementById("cadastro-form")
-        .addEventListener("submit", async function (e) {
-          e.preventDefault();
-
-          const firstName = document.getElementById("firstName").value.trim();
-          const lastName = document.getElementById("lastName").value.trim();
-          const birthdate = document.getElementById("birthdate").value;
-          const email = document.getElementById("email").value.trim();
-          const password = document.getElementById("password").value;
-          const confirmPassword =
-            document.getElementById("confirmPassword").value;
-          const nickname = document.getElementById("nickname").value.trim();
-          const gender = document.querySelector(
-            'input[name="gender"]:checked'
-          )?.value;
-
-          if (password !== confirmPassword) {
-            alert("As senhas não coincidem!");
-            return;
-          }
-
-          try {
-            await axios.post("http://localhost:8000/api/register", {
-              firstName,
-              lastName,
-              birthdate,
-              email,
-              password,
-              nickname,
-              gender,
-            });
-            alert("Cadastro realizado com sucesso!");
-            window.location.href = "login";
-          } catch (err) {
-            alert(
-              "Erro ao cadastrar: " + (err.response?.data?.error || err.message)
-            );
-          }
-        });
-    </script>
+    <script src="../assets/js/cadastrol.js"></script>
   </body>
 </html>
