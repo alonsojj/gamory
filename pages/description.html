@@ -7,16 +7,24 @@
     <title>Descrição do Jogo</title>
   </head>
   <body>
-    <div class="background-overlay">
-      <header class="header">
-        <nav>
-          <ul>
+    <header class="header">
+      <nav>
+        <ul>
+          <li>
+            <a href="/home" class="Gamory-header">Gamory</a>
+          </li>
+          <div class="menu-right">
             <li>
-              <a href="../home/HomeTeste2.html" class="Gamory-header">Gamory</a>
-            </li>
-            <div class="menu-right">
-              <li>
-                <form action="#" method="get" class="search-form">
+              <div
+                style="position: relative; display: inline-block; width: 100%"
+              >
+                <form
+                  action="#"
+                  method="get"
+                  class="search-form"
+                  autocomplete="off"
+                  style="display: inline"
+                >
                   <input
                     type="search"
                     name="busca"
@@ -24,58 +32,58 @@
                   />
                   <button type="submit">🔍</button>
                 </form>
-              </li>
-              <li>
-                <a href="../sobre/sobre.html" class="Perfil-header">Sobre</a>
-              </li>
-              <li>
-                <a href="../perfil/perfil.html" class="Perfil-header">Perfil</a>
-              </li>
-              <li><button class="submit-review-btn">Sair</button></li>
-            </div>
-          </ul>
-        </nav>
-      </header>
-
-      <div class="main-container">
-        <div class="game-info">
-          <img
-            class="game-image"
-            src="https://images.igdb.com/igdb/image/upload/t_cover_big/co9m78.webp"
-            alt="Imagem do jogo"
-          />
-          <div class="game-text">
-            <h1 class="game-title">Nome do Jogo</h1>
-            <p class="game-description">Descrição vinda do backend...</p>
-            <div class="star-rating" id="starRating">
-              <span class="star" data-value="1">&#9733;</span>
-              <span class="star" data-value="2">&#9733;</span>
-              <span class="star" data-value="3">&#9733;</span>
-              <span class="star" data-value="4">&#9733;</span>
-              <span class="star" data-value="5">&#9733;</span>
-            </div>
+                <div id="menu">
+                  <ul id="search-results"></ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <a href="/sobre" class="Perfil-header">Sobre</a>
+            </li>
+            <li>
+              <a href="/perfil" class="Perfil-header">Perfil</a>
+            </li>
+            <li><button class="logout-btn">Sair</button></li>
           </div>
-        </div>
-
-        <div class="comments-section">
-          <h2>Comentários</h2>
-          <button class="toggle-review-btn" onclick="toggleReviewBox()">
-            Escrever resenha
-          </button>
-
-          <div class="review-box" id="reviewBox" style="display: none">
-            <textarea
-              class="review-text"
-              placeholder="Escreva sua resenha..."
-            ></textarea>
-            <button class="submit-review-btn">Enviar</button>
+        </ul>
+      </nav>
+    </header>
+    <main class="main-container loader-overlay">
+      <div class="game-info">
+        <img
+          class="game-image"
+          src="/assets/images/Loading_icon.gif"
+          alt="Imagem do jogo"
+        />
+        <div class="game-text">
+          <h1 class="game-title">Loading...</h1>
+          <p class="game-description">Loading...</p>
+          <div class="star-rating" id="starRating">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
           </div>
-
-          <div class="comments-list" id="commentsList"></div>
         </div>
       </div>
-    </div>
-
-    <script src="../assets/js/description.js"></script>
+      <div class="comments-section">
+        <h2>Comentários</h2>
+        <button class="toggle-review-btn" onclick="toggleReviewBox()">
+          Escrever resenha
+        </button>
+        <div class="review-box" id="reviewBox" style="display: none">
+          <textarea
+            class="review-text"
+            placeholder="Escreva sua resenha..."
+          ></textarea>
+          <button class="submit-review-btn">Enviar</button>
+        </div>
+        <div class="comments-list" id="commentsList"></div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../assets/js/description.js"></script>
+    <script src="../assets/js/search.js"></script>
   </body>
 </html>
