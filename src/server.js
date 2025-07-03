@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:8000"],
+    origin: ["http://localhost:8000", "http://197.168.15.127:8080"],
     credentials: true,
   })
 );
@@ -50,6 +50,9 @@ app.get("/game", (req, res) => {
   res.sendFile(
     path.join(__dirname, "../../gamory-site/pages/description.html")
   );
+});
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../gamory-site/index.html"));
 });
 
 connect();

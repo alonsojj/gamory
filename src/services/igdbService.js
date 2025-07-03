@@ -68,11 +68,11 @@ export const searchGames = async ({ name, id }) => {
   }
 };
 
-export const getPopularGames = async () => {
+export const getPopularGames = async (limit) => {
   if (!accessToken) {
     await authenticate();
   }
-  const body = `fields id, name, cover.image_id; where category = 0 & total_rating_count > 0; sort total_rating_count desc; limit 15;`;
+  const body = `fields id, name, cover.image_id; where category = 0 & total_rating_count > 0; sort total_rating_count desc; limit ${limit};`;
   try {
     const response = await axios.post(`${IGDB_BASE_URL}/games`, body, {
       headers: getHeaders(),

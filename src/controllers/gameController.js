@@ -17,8 +17,11 @@ export const searchGamesController = async (req, res) => {
   }
 };
 export const getPopularGamesController = async (req, res) => {
+  const limit = req.query?.limit || 10;
+  if (limit > 30) return res.status(400).json({ error: "Max limit is 30" });
+
   try {
-    const games = await getPopularGames();
+    const games = await getPopularGames(limit);
     res.status(200).json(games);
   } catch (error) {
     res.status(500).json({ error: error.message });
