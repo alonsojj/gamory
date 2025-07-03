@@ -11,46 +11,52 @@
       <nav>
         <ul>
           <li>
-            <a href="../home/HomeTeste2.html" class="Gamory-header">Gamory</a>
+            <a href="/home" class="Gamory-header">Gamory</a>
           </li>
           <div class="menu-right">
             <li>
-              <form action="#" method="get" class="search-form">
-                <input type="search" name="busca" placeholder="Pesquisar..." />
-                <button type="submit">🔍</button>
-              </form>
+              <div
+                style="position: relative; display: inline-block; width: 100%"
+              >
+                <form
+                  action="#"
+                  method="get"
+                  class="search-form"
+                  autocomplete="off"
+                  style="display: inline"
+                >
+                  <input
+                    type="search"
+                    name="busca"
+                    placeholder="Pesquisar..."
+                  />
+                  <button type="submit">🔍</button>
+                </form>
+                <div id="menu">
+                  <ul id="search-results"></ul>
+                </div>
+              </div>
             </li>
             <li>
-              <a href="../sobre/sobre.html" class="Perfil-header">Sobre</a>
+              <a href="/sobre" class="Perfil-header">Sobre</a>
             </li>
             <li>
-              <a href="../perfil/perfil.html" class="Perfil-header">Perfil</a>
+              <a href="/perfil" class="Perfil-header">Perfil</a>
             </li>
-            <li><button class="submit-review-btn">Sair</button></li>
+            <li><button class="logout-btn">Sair</button></li>
           </div>
         </ul>
       </nav>
     </header>
 
-    <div class="jogos">
-      <p>Mais populares</p>
-      <a href="../game-description/description.html">
-        <img src="../../assests/images/home/jogo6.jpg" alt="Minecraft" />
-        <img src="../../assests/images/home/jogo1.webp" alt="GTA" />
-        <img src="../../assests/images/home/jogo2.jpg" alt="Mortal Kombat" />
-        <img
-          src="../../assests/images/home/jogo3.jpg"
-          alt="Shadow of the Colossus"
-        />
-        <img src="../../assests/images/home/jogo4.jpg" alt="Dead Space" />
-        <img src="../../assests/images/home/jogo5.jpg" alt="Resistance" />
-        <img src="../../assests/images/home/jogo9.jpg" alt="Resident Evil" />
-        <img src="../../assests/images/home/jogo7.jpg" alt="Assassin's Creed" />
-        <img src="../../assests/images/home/jogo8.jpg" alt="Saints Row" />
-        <img src="../../assests/images/home/jogo10.jpg" alt="God of War" />
-        <img src="../../assests/images/home/jogo11.jpg" alt="Heroes" />
-        <img src="../../assests/images/home/jogo12.jpg" alt="Uncharted" />
-      </a>
+    <h2>Mais populares</h2>
+    <div class="carousel-container loader-overlay">
+      <button class="carousel-btn left">&lt;</button>
+      <div class="carousel"></div>
+      <button class="carousel-btn right">&gt;</button>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../assets/js/search.js"></script>
+    <script type="module" src="../assets/js/home.js"></script>
   </body>
 </html>
