@@ -3,18 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="script2.js"></script>
-    <link rel="stylesheet" href="/assests/styles/perfil.css" />
+    <link rel="stylesheet" href="/assets/styles/pages/perfil.css" />
     <title>Perfil</title>
   </head>
   <body>
+    <nav>
+        <ul>
+          <li>
+            <a href="/home" class="Gamory-header">Gamory</a>
+          </li>
+          <div class="menu-right">
+            <li>
+              <a href="/sobre" class="Perfil-header">Sobre</a>
+            </li>
+            <li>
+              <a href="/perfil" class="Perfil-header">Perfil</a>
+            </li>
+            <li><button class="submit-review-btn">Sair</button></li>
+          </div>
+        </ul>
+      </nav>
+    </header>
     <div class="topo">
       <img
-        src="../../assests/images/perfil/perfilDegamer.jpg"
-        ;
-        align="left"
-        width="300px"
-        height="250px"
+        src="/assets/images/home/default-profile.jpg"
       />
       <br />
       <h1 class="nome">Nome</h1>
@@ -51,11 +63,6 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
-        // Log para depuração do token
-        console.log("Cookie auth:", document.cookie);
-        const token = localStorage.getItem("token");
-        console.log("Token localStorage:", token);
-
         async function fetchUser() {
           try {
             const response = await axios.get(
