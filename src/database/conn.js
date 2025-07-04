@@ -3,6 +3,7 @@ import { db } from "../config/config.js";
 import rateModel from "../models/rate.model.js";
 import userModel from "../models/user.model.js";
 import friendModel from "../models/friend.model.js";
+import ratelikeModel from "../models/ratelike.model.js";
 
 const sequelize = new Sequelize(db.database, db.username, db.password, {
   host: db.host,
@@ -20,12 +21,17 @@ const sequelize = new Sequelize(db.database, db.username, db.password, {
         },
 });
 export const Rate = rateModel(sequelize, DataTypes);
+export const RateLike = ratelikeModel(sequelize, DataTypes);
 export const User = userModel(sequelize, DataTypes);
 export const Friend = friendModel(sequelize, DataTypes);
+
 User.hasMany(Rate, { foreignKey: "userId" });
 Rate.belongsTo(User, { foreignKey: "userId" });
 User.hasMany(Friend, { foreignKey: "userId" });
 Friend.belongsTo(User, { foreignKey: "userId" });
+User.hasMany(RateLike, { foreignKey: "userId", as: "rateLikes" });
+RateLike.belongsTo(User, { foreignKey: "userId", as: "user" });
+
 export const connect = async () => {
   try {
     await sequelize.authenticate();
