@@ -26,16 +26,20 @@ const getHeaders = () => ({
   Authorization: `Bearer ${accessToken}`,
 });
 
-export const searchGames = async ({ name, id }) => {
+export const searchGames = async ({ name, id, limit }) => {
+  if (!limit) {
+    limit = 10;
+  }
   if (!accessToken) {
     await authenticate();
   }
 
   let body;
   if (name) {
-    body = `fields id, name, genres.name, platforms.name, summary, cover.image_id, artworks.image_id, category; search "${name}"; where category = 0; limit 10;`;
+    body = `fields id, name, genres.name, platforms.name, summary, cover.image_id, artworks.image_id, category; search "${name}"; where category = 0; limit ${limit};`;
   } else if (id) {
-    body = `fields id, name, genres.name, platforms.name, summary, cover.image_id, artworks.image_id, category; where id = ${id} & category = 0;`;
+    const idList = Array.isArray(id) ? `(${id.join(",")})` : id;
+    body = `fields id, name, genres.name, platforms.name, summary, cover.image_id, artworks.image_id, category; where id = ${idList} & category = 0;`;
   } else {
     throw new Error("Provide either 'name' or 'id' to search");
   }
@@ -64,6 +68,8 @@ export const searchGames = async ({ name, id }) => {
       return searchGames({ name, id });
     }
     console.error("Failed to fetch data from IGDB:", error.message);
+    console.error(error);
+
     throw error;
   }
 };
@@ -91,6 +97,54 @@ export const getPopularGames = async (limit) => {
       return getPopularGames();
     }
     console.error("Failed to fetch popular games from IGDB:", error.message);
+
+    throw error;
+  }
+};
+
+export const getUpcomingGames = async (limit = 10) => {
+  if (!accessToken) {
+    await authenticate();
+  }
+
+  const currentTimestamp = Math.floor(Date.now() / 1000);
+  const sixMonthsFromNow = currentTimestamp + 15768000;
+
+  const body = `
+    fields id, name, first_release_date, cover.image_id, summary;
+    where category = 0 & 
+          first_release_date != null & 
+          first_release_date >= ${currentTimestamp} & 
+          first_release_date <= ${sixMonthsFromNow};
+    sort first_release_date asc;
+    limit ${limit};
+  `;
+
+  try {
+    const response = await axios.post(`${IGDB_BASE_URL}/games`, body, {
+      headers: getHeaders(),
+    });
+
+    return response.data.map((game) => ({
+      id: game.id,
+      name: game.name,
+      releaseDate: game.first_release_date
+        ? new Date(game.first_release_date * 1000).toLocaleDateString()
+        : "Data não disponível",
+      releaseTimestamp: game.first_release_date,
+      coverUrl: game.cover
+        ? `${IMAGE_BASE_URL}t_cover_big/${game.cover.image_id}.jpg`
+        : null,
+      summary: game.summary || "Descrição não disponível",
+    }));
+  } catch (error) {
+    if (error.response?.status === 401) {
+      console.warn("Access token expired. Re-authenticating...");
+      await authenticate();
+      return getUpcomingGames(limit);
+    }
+    console.error("Failed to fetch upcoming games from IGDB:", error.message);
+    console.error(error);
     throw error;
   }
 };
