@@ -1,7 +1,3 @@
-import dotenv from "dotenv";
-dotenv.config({
-  path: `.env.${process.env.NODE_ENV || "development"}`,
-});
 export const db = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
