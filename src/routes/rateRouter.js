@@ -1,5 +1,7 @@
 import express from "express";
-import authMiddleware from "../middlewares/authMiddleware.js";
+import authMiddleware, {
+  optionalAuthApi,
+} from "../middlewares/authMiddleware.js";
 import {
   readRate,
   createRate,
@@ -8,9 +10,9 @@ import {
   likeRate,
 } from "../controllers/rateController.js";
 const router = express.Router();
-router.get("/", readRate);
-router.post("/", authMiddleware, createRate);
-router.put("/", authMiddleware, editRate);
+router.get("/", optionalAuthApi, readRate);
+router.post("/:gameId", authMiddleware, createRate);
+router.put("/:gameId", authMiddleware, editRate);
 router.delete("/", authMiddleware, deleteRate);
-router.post("/like", authMiddleware, likeRate);
+router.post("/:gameId/like", authMiddleware, likeRate);
 export default router;

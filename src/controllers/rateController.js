@@ -1,12 +1,13 @@
 import { Rate, RateLike } from "../database/conn.js";
 import { searchGames } from "../services/igdbService.js";
 import { User } from "../database/conn.js";
+import { updateGameAverageRating } from "../services/gameService.js";
 export const createRate = async (req, res) => {
-  const { gameId, score, commentary } = req.body;
-
+  const { score, commentary } = req.body;
+  const gameId = req.params.gameId;
   try {
     const isValidGame = await searchGames({ id: gameId });
-    if (!isValidGame) {
+    if (!isValidGame || isValidGame.length === 0) {
       return res.status(400).json({ error: "Invalid game ID" });
     }
 
@@ -17,16 +18,24 @@ export const createRate = async (req, res) => {
       commentary,
     };
     await Rate.create(newRate);
-    res.status(200).json({ message: "Rate created" });
+    await updateGameAverageRating(gameId);
+    res.status(201).json({ message: "Rate created" });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 export const readRate = async (req, res) => {
   try {
-    const { userId, gameId, score, order } = req.query;
+    const { gameId, userId, score, order, expand } = req.query;
     const where = {};
+
+    if (!gameId && !userId) {
+      return res.status(400).json({ error: "At least 'gameId' or 'userId' must be provided as a query parameter." });
+    }
+
     if (gameId) where.gameId = gameId;
+    if (userId) where.userId = userId;
+    if (score) where.score = score;
     if (userId) where.userId = userId;
     if (score) where.score = score;
 
@@ -35,27 +44,76 @@ export const readRate = async (req, res) => {
       include: [{ model: User, attributes: ["nickname", "profileImg"] }],
       order: [],
     };
+
+    if (req.user) {
+      options.order.push([
+        Rate.sequelize.literal(
+          "CASE WHEN `Rate`.`userId` = '" +
+            req.user.userId +
+            "' THEN 0 ELSE 1 END"
+        ),
+      ]);
+    }
+
     if (order === "desc" || order === "asc") {
-      options.order = [["score", order]];
+      options.order.push(["score", order]);
+    } else {
+      options.order.push(["createdAt", "DESC"]);
     }
 
     const rates = await Rate.findAll(options);
+
+    let gamesInfo = {};
+    if (expand && expand.includes("game")) {
+      const gameIds = [...new Set(rates.map((r) => r.gameId))];
+      for (const gid of gameIds) {
+        const games = await searchGames({ id: gid });
+        if (games && games[0]) {
+          gamesInfo[gid] = {
+            id: games[0].id,
+            name: games[0].name,
+            coverUrl: games[0].coverUrl,
+            bannerUrl: games[0].bannerUrl,
+          };
+        }
+      }
+    }
 
     const result = await Promise.all(
       rates.map(async (rate) => {
         const likesCount = await RateLike.count({
           where: { rateUserId: rate.userId, gameId: rate.gameId },
         });
-        return {
+        let likedByCurrentUser = false;
+        if (req.user) {
+          const userLike = await RateLike.findOne({
+            where: {
+              userId: req.user.userId,
+              rateUserId: rate.userId,
+              gameId: rate.gameId,
+            },
+          });
+          likedByCurrentUser = !!userLike;
+        }
+
+        const base = {
           id: rate.id,
           userId: rate.userId,
-          user: rate.User.nickname || "Usuário",
+          user:
+            req.user && req.user.userId === rate.userId
+              ? "Você"
+              : rate.User.nickname || "Usuário",
           photo: rate.User.profileImg,
           gameId: rate.gameId,
           rating: rate.score,
           comment: rate.commentary,
           likes: likesCount,
+          likedByCurrentUser: likedByCurrentUser,
         };
+        if (expand && expand.includes("game")) {
+          base.game = gamesInfo[rate.gameId] || { id: rate.gameId };
+        }
+        return base;
       })
     );
 
@@ -65,11 +123,11 @@ export const readRate = async (req, res) => {
   }
 };
 export const editRate = async (req, res) => {
-  const { gameId, score, commentary } = req.body;
-
+  const { score, commentary } = req.body;
+  const gameId = req.params.gameId;
   try {
     const isValidGame = await searchGames({ id: gameId });
-    if (!isValidGame) {
+    if (!isValidGame || isValidGame.length === 0) {
       return res.status(400).json({ error: "Invalid game ID" });
     }
 
@@ -91,19 +149,21 @@ export const editRate = async (req, res) => {
     });
 
     res.status(200).json({ message: "Rate updated", rate: updatedRate });
+    await updateGameAverageRating(gameId);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 export const deleteRate = async (req, res) => {
   const { gameId } = req.body;
-  if (!gameId) return res.status(401).json({ error: "gameId not provided" });
+  if (!gameId) return res.status(400).json({ error: "gameId not provided" });
   try {
     await RateLike.destroy({ where: { rateUserId: req.user.userId, gameId } });
     const result = await Rate.destroy({
       where: { userId: req.user.userId, gameId },
     });
     if (!result) return res.status(404).json({ error: "Rate not found" });
+    await updateGameAverageRating(gameId);
     res.status(200).json({ message: "Rate deleted", result });
   } catch (error) {
     res.status(400).json({ error: error });
@@ -111,24 +171,54 @@ export const deleteRate = async (req, res) => {
 };
 
 export const likeRate = async (req, res) => {
-  const { gameId, rateUserId } = req.body;
+  const { rateUserId } = req.body;
+  const { gameId } = req.params;
+  if (!gameId) {
+    return res.status(400).json({ error: "gameId is required." });
+  }
+  if (!rateUserId) {
+    return res.status(400).json({ error: "rateUserId is required." });
+  }
+  if (!req.user || !req.user.userId) {
+    return res
+      .status(400)
+      .json({ error: "User not authenticated or user ID missing." });
+  }
+
   try {
     const isValidGame = await searchGames({ id: gameId });
-    if (!isValidGame) {
-      return res.status(400).json({ error: "Invalid game ID" });
+    if (!isValidGame || isValidGame.length === 0) {
+      return res.status(400).json({ error: "Invalid game ID provided." });
     }
     const rate = await Rate.findOne({ where: { userId: rateUserId, gameId } });
     if (!rate) {
-      return res.status(404).json({ error: "Rate not found" });
+      return res
+        .status(404)
+        .json({ error: "Rate not found for the given user and game." });
     }
-    const newLike = {
-      userId: req.user.userId,
-      rateUserId,
-      gameId,
-    };
-    await RateLike.create(newLike);
-    res.status(200).json({ message: "Registered like", newLike });
+
+    const existingLike = await RateLike.findOne({
+      where: { userId: req.user.userId, rateUserId, gameId },
+    });
+
+    if (existingLike) {
+      await RateLike.destroy({
+        where: { userId: req.user.userId, rateUserId, gameId },
+      });
+      return res.status(200).json({ message: "Unliked rate" });
+    } else {
+      const newLike = {
+        userId: req.user.userId,
+        rateUserId,
+        gameId,
+      };
+      await RateLike.create(newLike);
+      return res.status(200).json({ message: "Liked rate", newLike });
+    }
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error("Error in likeRate:", error);
+    res.status(400).json({
+      error: "An unexpected error occurred while processing your like request.",
+    });
   }
 };
