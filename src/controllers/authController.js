@@ -29,28 +29,23 @@ async function authenticateAndRespond(req, res) {
       sameSite: "lax",
       secure: false,
     })
-    .json({ token: newToken });
+    .json({ userId: result.id, token: newToken });
 }
 
 export const loginHandler = async (req, res) => {
-  const token =
-    req.cookies?.auth || req.headers?.authorization?.replace("Bearer ", "");
+  const token = req.cookies?.auth || req.headers?.authorization?.replace("Bearer ", "");
+
   if (token) {
-    try {
-      await verifyToken(token);
+    const decodedToken = verifyToken(token);
+    if (decodedToken) {
       return res.status(403).json({ error: "Usuario ja logado" });
-    } catch (err) {
-      try {
-        return await authenticateAndRespond(req, res);
-      } catch (error) {
-        return res.json(error);
-      }
     }
   }
+
   try {
     return await authenticateAndRespond(req, res);
   } catch (error) {
-    res.json(error);
+    return res.status(500).json({ error: error.message || "Erro interno do servidor" });
   }
 };
 export const registerHandler = async (req, res) => {
@@ -62,11 +57,15 @@ export const registerHandler = async (req, res) => {
       password: passwordhash,
     };
     await User.create(newUser);
+    res.status(201).json({ message: "Usuario cadastrado" });
   } catch (error) {
-    return res.status(400).json({ error });
+    return res.status(400).json({ error: error.message });
   }
-
-  res.status(201).json({ message: "Usuario cadastrado" });
 };
 
-export default { loginHandler, registerHandler };
+export const logoutHandler = (req, res) => {
+  res.clearCookie("auth", { path: "/" });
+  res.status(200).json({ message: "Logout successful" });
+};
+
+export default { loginHandler, registerHandler, logoutHandler };
