@@ -1,12 +1,15 @@
+@import url(../global/global.css);
+@import url(../global/header.css);
 body {
   background-color: black;
-  opacity: 0.5;
 }
 button:hover {
   transform: scale(1.1);
 }
 .topo {
-  background-image: url("newfundo4.jpg") !important;
+  background-image: url("../../images/perfil/newfundo4.jpg");
+  margin: 10px 0;
+  padding: 10px 30px;
 }
 .topo img {
   height: 170px;
@@ -14,51 +17,35 @@ button:hover {
   border: none;
   border-radius: 50%;
 }
-.topo .nome {
-  position: absolute;
-  top: 5dvh;
-  margin-left: 25%;
+.profile {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  gap: 30px;
+}
+.nome {
   font-size: 40px;
-  color: aliceblue;
+  color: #fff;
 }
-.topo .perfil {
-  margin-top: -10px;
-  margin-left: 15px;
+.information {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.action {
+  margin-top: 20px;
+  width: 100%;
+  gap: 10px;
+  display: flex;
+  flex: 1;
+}
+.action a,
+.action button {
   padding: 10px 20px;
   background-color: rgb(34, 6, 60, 0.5);
   color: white;
   font-size: 16px;
-
-  border: none;
-  border-radius: 8px;
-  transition: transform 0.3s, background-color 0.3s;
-  border: 2px solid white;
-  border-radius: 25px;
-  cursor: pointer;
-}
-.topo .amigos {
-  margin-top: -10px;
-  margin-left: 15px;
-  padding: 10px 20px;
-  background-color: rgb(34, 6, 60, 0.5);
-  color: white;
-  font-size: 16px;
-
-  border: none;
-  border-radius: 8px;
-  transition: transform 0.3s, background-color 0.3s;
-  border: 2px solid white;
-  border-radius: 25px;
-  cursor: pointer;
-}
-.topo .home {
-  margin-top: 15dvh;
-  margin-left: 12px;
-  padding: 10px 20px;
-  background-color: rgb(34, 6, 60, 0.5);
-  color: white;
-  font-size: 16px;
-
+  text-decoration: none;
   border: none;
   border-radius: 8px;
   transition: transform 0.3s, background-color 0.3s;
@@ -67,29 +54,12 @@ button:hover {
   cursor: pointer;
 }
 .jogos {
+  padding: 20px;
   display: flex;
   align-items: center;
 }
-
-.new-jogos {
-  height: 130px;
-  width: 100px;
-  margin: 4px;
-  margin-top: 2vh;
-  margin-left: 12px;
-  padding: 10px 20px;
-  background-color: rgb(34, 6, 60, 0.5);
-  color: white;
-  font-size: 30px;
-
-  border: none;
-  border-radius: 20px;
-  transition: transform 0.3s, background-color 0.3s;
-  border: 2px solid white;
-  border-radius: 20px;
-  cursor: pointer;
-}
 .MJ {
+  padding: 20px;
   color: aliceblue;
   font-size: 28px;
 }
@@ -102,4 +72,61 @@ button:hover {
 }
 .jogos img:hover {
   transform: scale(1.1);
+}
+.amigos-menu {
+  background: #222;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  display: none;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+.amigo-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.amigo-item:hover {
+  background: #333;
+}
+.amigo-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.amigos-menu {
+  display: flex;
+  flex-direction: column;
+}
+.amigos-abas {
+  display: flex;
+  justify-content: space-around;
+}
+.amigos-abas button {
+  color: white;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid #fff;
+}
+.amigos-lista {
+  display: flex;
+}
+.aba-ativa {
+  display: flex !important;
+}
+button.aba-ativa {
+  border-color: #7b0302;
+}
+.aba {
+  display: none;
+  text-align: center;
 }

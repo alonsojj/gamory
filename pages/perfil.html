@@ -3,118 +3,88 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/assets/styles/pages/perfil.css" />
+    <link rel="stylesheet" href="../assets/styles/pages/perfil.css" />
     <title>Perfil</title>
   </head>
   <body>
-    <nav>
+    <header class="header">
+      <nav>
         <ul>
           <li>
             <a href="/home" class="Gamory-header">Gamory</a>
           </li>
           <div class="menu-right">
             <li>
+              <div
+                style="position: relative; display: inline-block; width: 100%"
+              >
+                <form
+                  action="#"
+                  method="get"
+                  class="search-form"
+                  autocomplete="off"
+                  style="display: inline"
+                >
+                  <input
+                    type="search"
+                    name="busca"
+                    placeholder="Pesquisar..."
+                  />
+                  <button type="submit">🔍</button>
+                </form>
+                <div id="menu">
+                  <ul id="search-results"></ul>
+                </div>
+              </div>
+            </li>
+            <li>
               <a href="/sobre" class="Perfil-header">Sobre</a>
             </li>
             <li>
               <a href="/perfil" class="Perfil-header">Perfil</a>
             </li>
-            <li><button class="submit-review-btn">Sair</button></li>
+            <li><button class="logout-btn">Sair</button></li>
           </div>
         </ul>
       </nav>
     </header>
-    <div class="topo">
-      <img
-        src="/assets/images/home/default-profile.jpg"
-      />
-      <br />
-      <h1 class="nome">Nome</h1>
-      <a href="AlteracaoDeDadosdoPerfil.html">
-        <button class="perfil" onclick="MostrarPagina('perfil')">perfil</button>
-      </a>
+    <section class="topo">
+      <div class="profile">
+        <img src="/assets/images/home/default-profile.jpg" />
+        <div class="information">
+          <h1 class="nome">Nome</h1>
+          <div class="action">
+            <a href="/perfil/edit">Editar</a>
+            <button class="amigos">Amigos</button>
+          </div>
+        </div>
+      </div>
+      <div class="biography-section">
+        <h2>Biografia</h2>
+        <p id="user-biography">Nenhuma biografia disponível.</p>
+      </div>
+      <div id="amigos-menu" class="amigos-menu" style="display: none">
+        <div class="amigos-abas">
+          <button class="aba-amigos-bnt aba-ativa">Amigos</button>
+          <button class="aba-pendentes-recebidos-bnt">
+            Pendentes Recebidos
+          </button>
+          <button class="aba-pendentes-enviados-bnt">Pendentes Enviados</button>
+        </div>
+        <div class="amigos-lista">
+          <div class="aba-amigos aba-ativa aba"></div>
+          <div class="aba-pendentes-recebidos aba"></div>
+          <div class="aba-pendentes-enviados aba"></div>
+        </div>
+      </div>
+    </section>
 
-      <button class="amigos" onclick="MostrarAmigos('amigos')">amigos</button>
-
-      <a href="PaginaHome.html">
-        <button class="home" onclick="MostrarHome('home')">home</button>
-      </a>
-
-      <br /><br />
-      <br />
-    </div>
-
-    <p class="MJ">Meus jogos</p>
-
-    <div class="jogos">
-      <button class="new-jogos" onclick="MostraJogos()">+</button>
-      <img
-        src="../../assests/images/home/jogo1.webp"
-        width="100px"
-        height="130px"
-      />
-      <img
-        src="../../assests/images/home/jogo2.jpg"
-        width="100px"
-        height="130px"
-      />
-    </div>
+    <main>
+      <h2 class="MJ">Meus jogos</h2>
+      <div class="jogos"></div>
+    </main>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", async function () {
-        async function fetchUser() {
-          try {
-            const response = await axios.get(
-              "http://localhost:8000/api/user/me",
-              {
-                withCredentials: true,
-              }
-            );
-            return response.data;
-          } catch (error) {
-            alert("Erro ao buscar dados do usuário.");
-            console.error("Erro ao buscar usuário:", error);
-            return null;
-          }
-        }
-
-        async function updateUser(data) {
-          try {
-            const response = await axios.put(
-              "http://localhost:8000/api/user/me",
-              data,
-              {
-                withCredentials: true,
-              }
-            );
-            alert("Dados atualizados com sucesso!");
-            return response.data;
-          } catch (error) {
-            alert("Erro ao atualizar dados do usuário.");
-            console.error("Erro ao atualizar usuário:", error);
-            return null;
-          }
-        }
-
-        const user = await fetchUser();
-        if (user && user.nickname) {
-          document.querySelector(".nome").textContent = user.nickname;
-        }
-
-        const form = document.getElementById("edit-user-form");
-        if (form) {
-          form.addEventListener("submit", async function (e) {
-            e.preventDefault();
-            const formData = new FormData(form);
-            const data = {};
-            for (const [key, value] of formData.entries()) {
-              if (value) data[key] = value;
-            }
-            await updateUser(data);
-          });
-        }
-      });
-    </script>
+    <script src="../assets/js/perfil.js"></script>
+    <script src="../assets/js/global/search.js"></script>
   </body>
 </html>
