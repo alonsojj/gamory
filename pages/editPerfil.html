@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/styles/pages/editPerfil.css" />
+    <title>Alteração de Dados do Perfil</title>
+  </head>
+  <body>
+    <main class="profile-container">
+      <h1>Configurações do Perfil</h1>
+
+      <form id="profile-form">
+        <div class="form-group">
+          <label for="nickname">Nome de usuário</label>
+          <input type="text" id="nickname" name="nickname" placeholder="Nome" />
+          <label for="profileImgUrl">URL da Imagem de Perfil</label>
+          <input type="text" id="profileImgUrl" name="profileImgUrl" placeholder="Cole a URL da imagem aqui" />
+
+          <label for="biography">Biografia</label>
+          <textarea
+            id="biography"
+            name="biography"
+            placeholder="Escreva uma biografia"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Alterar email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Novo email"
+          />
+          <label for="oldPassword">Atual senha</label>
+          <input
+            type="password"
+            id="senha"
+            name="oldPassword"
+            placeholder="Atual Senha"
+          />
+          <label for="newPassword">Nova senha</label>
+          <input
+            type="password"
+            id="newPassword"
+            name="newPassword"
+            placeholder="Nova Senha"
+          />
+          <button type="submit" id="Salvar">Salvar</button>
+          <button type="reset" id="Cancelar">Cancelar</button>
+        </div>
+      </form>
+
+      <div class="Home">
+        <a class="casa" href="/perfil">Voltar para Home</a>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../assets/js/editPerfil.js"></script>
+  </body>
+</html>
