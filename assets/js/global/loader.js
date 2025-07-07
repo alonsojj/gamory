@@ -14,8 +14,5 @@ export function hideLoader(element) {
   setTimeout(() => {
     element.classList.remove("fade-out");
     element.classList.remove("loader-overlay");
-  }, 300);
-}
-export function showLoader(element) {
-  element.classList.remove("loader-overlay");
+  }, 500);
 }
