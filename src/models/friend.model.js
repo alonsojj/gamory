@@ -16,7 +16,7 @@ export default (sequelize, DataTypes) => {
       friendId: {
         type: DataTypes.UUID,
         allowNull: false,
-        primaryKey: false,
+        primaryKey: true,
         references: {
           model: "Users",
           key: "id",

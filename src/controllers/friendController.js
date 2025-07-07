@@ -1,4 +1,5 @@
 import { Friend } from "../database/conn.js";
+import { Op } from "sequelize";
 
 export const createFriendship = async (req, res) => {
   const { friendId } = req.body;
@@ -8,10 +9,16 @@ export const createFriendship = async (req, res) => {
       return res.status(400).json({ error: "Cannot add yourself as a friend" });
     }
     const existingFriendship = await Friend.findOne({
-      where: { userId, friendId },
+      where: {
+        [Op.or]: [
+          { userId, friendId },
+          { userId: friendId, friendId: userId },
+        ],
+        status: "pending",
+      },
     });
     if (existingFriendship) {
-      return res.status(400).json({ error: "Friendship already exists" });
+      return res.status(400).json({ error: "A pending friendship request already exists with this user." });
     }
     await Friend.create({ userId, friendId, status: "pending" });
     res.status(201).json({ message: "Friendship request sent" });
