@@ -23,12 +23,34 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
       if (response.status === 200) {
+        if (response.data && response.data.userId) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ userId: response.data.userId })
+          );
+        } else {
+          try {
+            const me = await axios.get("http://localhost:8000/api/user/me", {
+              withCredentials: true,
+            });
+            if (me.data && me.data.userId) {
+              localStorage.setItem(
+                "user",
+                JSON.stringify({ userId: me.data.userId })
+              );
+            }
+          } catch {}
+        }
         window.location.href = "/home";
       } else {
         alert("Usuário ou senha inválidos.");
       }
     } catch (error) {
-      alert("Erro ao conectar com o servidor.");
+      if (error.response && error.response.status === 401) {
+        alert("Usuário ou senha inválidos.");
+      } else {
+        alert("Erro ao conectar com o servidor.");
+      }
     }
   });
 });

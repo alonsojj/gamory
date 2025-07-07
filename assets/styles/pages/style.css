@@ -14,6 +14,7 @@ body {
   background: url("../../images/cadastro/kratos.jpg");
   background-size: cover;
   background-position: center;
+  overflow: hidden;
 }
 
 header {

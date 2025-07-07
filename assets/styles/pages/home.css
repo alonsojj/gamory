@@ -3,6 +3,11 @@
 @import url("../global/loader.css");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
+body {
+  background: url("../../images/home/newfundo4.jpg") no-repeat center
+    center/cover;
+  min-height: 100vh;
+}
 .loader-overlay::after {
   background: transparent;
 }
@@ -21,15 +26,14 @@ h2 {
   width: 100%;
   margin: 0 0 40px 0;
   position: relative;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 0 16px;
   min-height: 352px;
   z-index: -1;
+  overflow: hidden;
 }
 
 .carousel {
   display: flex;
-  align-items: flex-start;
   overflow: hidden;
   width: 100%;
   background: rgba(0, 0, 0, 0.3);
@@ -37,80 +41,39 @@ h2 {
   padding: 10px 10px;
   position: relative;
   transition: background 0.3s;
-  gap: 24px;
   margin: 0 20px;
 }
 
 .carousel-track {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
   transition: transform 0.5s cubic-bezier(0.77, 0, 0.18, 1);
   will-change: transform;
+  gap: 24px;
+  padding: 0 40px;
 }
 
-.carousel.slide-left {
-  animation: slideLeft 0.4s cubic-bezier(0.77, 0, 0.18, 1);
-}
-.carousel.slide-right {
-  animation: slideRight 0.4s cubic-bezier(0.77, 0, 0.18, 1);
-}
-
-@keyframes slideLeft {
-  0% {
-    transform: translateX(80px);
-    opacity: 0.7;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-@keyframes slideRight {
-  0% {
-    transform: translateX(-80px);
-    opacity: 0.7;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.carousel .carousel-item {
-  flex: 1 1 0;
-  min-width: 0;
-  max-width: 100%;
+.carousel-item {
+  flex: 0 0 264px;
   box-sizing: border-box;
   padding: 15px 4px;
-  transition: transform 0.25s, margin 0.25s;
+  transition: transform 0.25s;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: visible;
+  cursor: pointer;
 }
 
-.carousel .carousel-item:hover {
+.carousel-item:hover {
   transform: scale(1.08);
-  margin: 0 18px;
-  overflow: visible;
 }
 
 .carousel-item img {
+  height: 264px;
   width: 100%;
-  width: 264px;
-  height: auto;
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-}
-
-.carousel-item-title {
-  color: #fff;
-  margin-top: 10px;
-  font-size: 1rem;
-  text-align: center;
 }
 
 .carousel-btn {
@@ -120,8 +83,8 @@ h2 {
   background-color: transparent;
   color: #fff;
   border: none;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   font-size: 2.2rem;
   font-weight: bold;
   font-family: "Poppins", Arial, sans-serif;
@@ -130,10 +93,17 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s;
 }
+
+.carousel-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
 .carousel-btn.left {
   left: 15px;
 }
+
 .carousel-btn.right {
   right: 15px;
 }
@@ -142,15 +112,18 @@ h2 {
   .carousel {
     max-width: 98vw;
   }
+
   .carousel-btn {
     width: 32px;
     height: 32px;
     font-size: 1.3rem;
-    left: 4px;
-    right: 4px;
   }
+
+  .carousel-item {
+    flex: 0 0 140px;
+  }
+
   .carousel-item img {
-    max-width: 110px;
     height: 140px;
   }
 }
