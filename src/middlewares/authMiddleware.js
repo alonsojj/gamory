@@ -1,6 +1,7 @@
+import { error } from "console";
 import { verifyToken } from "../services/authService.js";
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = (req) => {
   let token = null;
   console.log("Authorization header:", req.headers.authorization);
   console.log("Auth cookie:", req.cookies?.auth);
@@ -16,20 +17,49 @@ const authMiddleware = (req, res, next) => {
   console.log("Token usado:", token);
 
   if (!token) {
-    return res.status(401).json({ error: "Token não fornecido" });
+    return new Error("Token inválido ou expirado", { cause: "401" });
   }
   try {
     const decoded = verifyToken(token);
     if (!decoded) {
-      return res.status(403).json({ error: "Token inválido ou expirado" });
+      return new Error("Token inválido ou expirado", { cause: "403" });
     }
-    req.user = decoded;
     console.log("Token decodificado:", decoded);
+    return decoded;
   } catch (error) {
     console.error("Erro ao verificar token:", error);
-    return res.status(400).json({ error: error.message });
+    return new Error(error.message, { cause: "400" });
+  }
+};
+export const authApi = (req, res, next) => {
+  const result = authMiddleware(req);
+  if (result?.cause == 403) {
+    res.status(403).json({ error: result.message });
+  } else if (result?.cause == 401) {
+    res.status(401).json({ error: result.message });
+  } else if (result?.cause == 400) {
+    res.status(400).json({ error: error.message });
+  } else {
+    req.user = result;
+    next();
+  }
+};
+export const authFront = (req, res, next) => {
+  const result = authMiddleware(req);
+  if (result instanceof Error) {
+    res.redirect("/login");
+  } else {
+    next();
+  }
+};
+export default authApi;
+
+export const optionalAuthApi = (req, res, next) => {
+  const result = authMiddleware(req);
+  if (result instanceof Error) {
+    req.user = null;
+  } else {
+    req.user = result;
   }
   next();
 };
-
-export default authMiddleware;
