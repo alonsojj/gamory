@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/styles/pages/home.css" />
+    <title>Home</title>
+  </head>
+  <body>
+    <header class="header">
+      <nav>
+        <ul>
+          <li>
+            <a href="/home" class="Gamory-header">Gamory</a>
+          </li>
+          <div class="menu-right">
+            <li>
+              <div
+                style="position: relative; display: inline-block; width: 100%"
+              >
+                <form
+                  action="#"
+                  method="get"
+                  class="search-form"
+                  autocomplete="off"
+                  style="display: inline"
+                >
+                  <input
+                    type="search"
+                    name="busca"
+                    placeholder="Pesquisar..."
+                  />
+                  <button type="submit">🔍</button>
+                </form>
+                <div id="menu">
+                  <ul id="search-results"></ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <a href="/sobre" class="Perfil-header">Sobre</a>
+            </li>
+            <li>
+              <a href="/perfil" class="Perfil-header">Perfil</a>
+            </li>
+            <li><button class="logout-btn">Sair</button></li>
+          </div>
+        </ul>
+      </nav>
+    </header>
+
+    <h2>Mais Avalidos Recentemente</h2>
+    <div
+      class="carousel-container loader-overlay"
+      id="recently-rated-container"
+    >
+      <div class="carousel" id="recently-rated-carousel">
+        <button class="carousel-btn left">❮</button>
+        <button class="carousel-btn right">❯</button>
+        <div class="carousel-track"></div>
+      </div>
+    </div>
+    <h2>Jogos Populares</h2>
+    <div class="carousel-container" id="popular-container">
+      <div class="carousel" id="popular-carousel">
+        <button class="carousel-btn left">❮</button>
+        <button class="carousel-btn right">❯</button>
+        <div class="carousel-track"></div>
+      </div>
+    </div>
+    <h2>Próximos Lançamentos</h2>
+    <div class="carousel-container" id="upcoming-container">
+      <div class="carousel" id="upcoming-carousel">
+        <button class="carousel-btn left">❮</button>
+        <button class="carousel-btn right">❯</button>
+        <div class="carousel-track"></div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../assets/js/home.js"></script>
+    <script src="../assets/js/global/search.js"></script>
+    <script src="../assets/js/search_results.js"></script>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+main {
+  padding: 20px;
+}
+a {
+  color: #fff;
+  text-decoration: none;
+}
+#user-results a {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+h2 {
+  margin-left: 0px;
+  margin-bottom: 20px;
+}
+.search-filters {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-filters button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.search-filters button.active {
+  background-color: #555;
+}
+
+.results-section {
+  margin-top: 20px;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.results-grid .game-card {
+  background-color: #222;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.results-grid .game-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.results-grid .game-card h3 {
+  font-size: 1.1rem;
+  margin: 10px 0 5px;
+}
+
+.results-list {
+  list-style: none;
+  padding: 0;
+}
+
+.results-list li {
+  background-color: #222;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.results-list li img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.hidden {
+  display: none;
+}

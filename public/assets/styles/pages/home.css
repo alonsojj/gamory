@@ -1,0 +1,129 @@
+@import url("../global/global.css");
+@import url("../global/header.css");
+@import url("../global/loader.css");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+
+body {
+  background: url("../../images/background/home.jpg") no-repeat center
+    center/cover;
+  min-height: 100vh;
+}
+.loader-overlay::after {
+  background: transparent;
+}
+/* ---------- SESSÃO DE JOGOS ---------- */
+
+h2 {
+  margin-left: 40px;
+  margin-top: 30px;
+  font-weight: bold;
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 0 40px 0;
+  position: relative;
+  padding: 0 16px;
+  min-height: 352px;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 10px 10px;
+  position: relative;
+  transition: background 0.3s;
+  margin: 0 20px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+  will-change: transform;
+  gap: 24px;
+  padding: 0 40px;
+}
+
+.carousel-item {
+  flex: 0 0 264px;
+  box-sizing: border-box;
+  padding: 15px 4px;
+  transition: transform 0.25s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.carousel-item:hover {
+  transform: scale(1.08);
+}
+
+.carousel-item img {
+  height: 264px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  font-size: 2.2rem;
+  font-weight: bold;
+  font-family: "Poppins", Arial, sans-serif;
+  cursor: pointer;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.carousel-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn.left {
+  left: 15px;
+}
+
+.carousel-btn.right {
+  right: 15px;
+}
+
+@media (max-width: 900px) {
+  .carousel {
+    max-width: 98vw;
+  }
+
+  .carousel-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.3rem;
+  }
+
+  .carousel-item {
+    flex: 0 0 140px;
+  }
+
+  .carousel-item img {
+    height: 140px;
+  }
+}

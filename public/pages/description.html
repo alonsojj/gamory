@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/styles/pages/description.css" />
+    <title>Descrição do Jogo</title>
+  </head>
+  <body>
+    <header class="header">
+      <nav>
+        <ul>
+          <li>
+            <a href="/home" class="Gamory-header">Gamory</a>
+          </li>
+          <div class="menu-right">
+            <li>
+              <div
+                style="position: relative; display: inline-block; width: 100%"
+              >
+                <form
+                  action="#"
+                  method="get"
+                  class="search-form"
+                  autocomplete="off"
+                  style="display: inline"
+                >
+                  <input
+                    type="search"
+                    name="busca"
+                    placeholder="Pesquisar..."
+                  />
+                  <button type="submit">🔍</button>
+                </form>
+                <div id="menu">
+                  <ul id="search-results"></ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <a href="/sobre" class="Perfil-header">Sobre</a>
+            </li>
+            <li>
+              <a href="/perfil" class="Perfil-header">Perfil</a>
+            </li>
+            <li><button class="logout-btn">Sair</button></li>
+          </div>
+        </ul>
+      </nav>
+    </header>
+    <main class="main-container loader-overlay">
+      <div class="game-info">
+        <img
+          class="game-image"
+          src="/assets/images/icons/loading_icon.gif"
+          alt="Imagem do jogo"
+        />
+        <div class="game-text">
+          <h1 class="game-title">Loading...</h1>
+          <p class="game-description">Loading...</p>
+          <div class="star-rating" id="starRating">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+          </div>
+        </div>
+      </div>
+      <div class="comments-section">
+        <h2>Comentários</h2>
+        <button class="toggle-review-btn" onclick="toggleReviewBox()">
+          Escrever resenha
+        </button>
+        <div class="review-box" id="reviewBox" style="display: none">
+          <textarea
+            class="review-text"
+            placeholder="Escreva sua resenha..."
+          ></textarea>
+          <button class="submit-review-btn">Enviar</button>
+        </div>
+        <div class="comments-list" id="commentsList"></div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../assets/js/description.js"></script>
+    <script src="../assets/js/global/search.js"></script>
+  </body>
+</html>
