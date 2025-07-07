@@ -1,10 +1,13 @@
 import express from "express";
-import authMiddleware from "../middlewares/authMiddleware.js";
+import authMiddleware, {
+  optionalAuthApi,
+} from "../middlewares/authMiddleware.js";
 import {
   deleteUser,
   readUser,
   editUser,
   queryUser,
+  updatePassword,
 } from "../controllers/userController.js";
 import {
   createFriendship,
@@ -16,9 +19,10 @@ const router = express.Router();
 router.get("/me", authMiddleware, readUser);
 router.put("/me", authMiddleware, editUser);
 router.delete("/me", authMiddleware, deleteUser);
-router.post("me/friendships", authMiddleware, createFriendship);
-router.put("me/friendships", authMiddleware, updateFriendshipStatus);
-router.get("/:id", readUser);
-router.get("/search", queryUser);
+router.post("/me/friendships", authMiddleware, createFriendship);
+router.put("/me/friendships", authMiddleware, updateFriendshipStatus);
+router.put("/me/password", authMiddleware, updatePassword);
+router.get("/:id", optionalAuthApi, readUser);
+router.get("/", queryUser);
 
 export default router;
