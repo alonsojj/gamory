@@ -7,17 +7,47 @@
   <link rel="stylesheet" href="/assets/styles/pages/sobre.css" />
 </head>
 <body>
-  <div class="background-overlay">
-    <header class="header">
-      <div>
+
+       <header class="header">
+      <nav>
         <ul>
-          <li><a href="../home/HomeTeste2.html" class="Gamory-header">Gamory</a></li>
+          <li>
+            <a href="/home" class="Gamory-header">Gamory</a>
+          </li>
           <div class="menu-right">
-            <li><a href="../perfil/perfil.html" class="Perfil-header">Perfil</a></li>
-            <li><a href="../sobre/sobre.html" class="Perfil-header">Sobre</a></li>
+            <li>
+              <div
+                style="position: relative; display: inline-block; width: 100%"
+              >
+                <form
+                  action="#"
+                  method="get"
+                  class="search-form"
+                  autocomplete="off"
+                  style="display: inline"
+                >
+                  <input
+                    type="search"
+                    name="busca"
+                    placeholder="Pesquisar..."
+                  />
+                  <button type="submit">🔍</button>
+                </form>
+                <div id="menu">
+                  <ul id="search-results"></ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <a href="/sobre" class="Perfil-header">Sobre</a>
+            </li>
+            <li>
+              <a href="/perfil" class="Perfil-header">Perfil</a>
+            </li>
+            <li><button class="logout-btn">Sair</button></li>
           </div>
         </ul>
-      </div>
+      </nav>
     </header>
 
     <main class="sobre-container">
@@ -75,6 +105,6 @@ Gabriel desempenhou um papel fundamental na gestão de tarefas e documentação 
         </ul>
       </section>
     </main>
-  </div>
+
 </body>
 </html>
