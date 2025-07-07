@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resultados da Busca</title>
+    <link rel="stylesheet" href="../assets/styles/pages/home.css" />
+    <link rel="stylesheet" href="../assets/styles/pages/search_results.css" />
+  </head>
+  <body>
+    <header class="header">
+      <nav>
+        <ul>
+          <li>
+            <a href="/home" class="Gamory-header">Gamory</a>
+          </li>
+          <div class="menu-right">
+            <li>
+              <div
+                style="position: relative; display: inline-block; width: 100%"
+              >
+                <form
+                  action="#"
+                  method="get"
+                  class="search-form"
+                  autocomplete="off"
+                  style="display: inline"
+                >
+                  <input
+                    type="search"
+                    name="busca"
+                    placeholder="Pesquisar..."
+                  />
+                  <button type="submit">🔍</button>
+                </form>
+                <div id="menu">
+                  <ul id="search-results"></ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <a href="/sobre" class="Perfil-header">Sobre</a>
+            </li>
+            <li>
+              <a href="/perfil" class="Perfil-header">Perfil</a>
+            </li>
+            <li><button class="logout-btn">Sair</button></li>
+          </div>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <h1>Resultados da Busca para "<span id="search-query"></span>"</h1>
+
+      <div class="search-filters">
+        <button id="show-games" class="active">Mostrar Jogos</button>
+        <button id="show-users">Mostrar Usuários</button>
+      </div>
+
+      <section id="game-results" class="results-section">
+        <h2>Jogos</h2>
+        <div class="results-grid">
+          <!-- Game results will be loaded here -->
+        </div>
+      </section>
+
+      <section id="user-results" class="results-section hidden">
+        <h2>Usuários</h2>
+        <div class="results-list">
+          <!-- User results will be loaded here -->
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../assets/js/global/search.js"></script>
+    <script src="../assets/js/search_results.js"></script>
+  </body>
+</html>
