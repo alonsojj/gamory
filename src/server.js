@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:8000", "http://197.168.15.127:8080"],
+    origin: ["http://localhost:8000", "http://197.168.15.127:8080", "https://gamory-g2auhge7c6f7a2d8.canadacentral-01.azurewebsites.net"],
     credentials: true,
   })
 );

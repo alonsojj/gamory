@@ -11,15 +11,16 @@ const sequelize = new Sequelize(db.database, db.username, db.password, {
   dialect: db.dialect,
   port: db.port,
   logging: db.env == "development" ? false : console.log,
-  dialectOptions:
-    db.env == "development"
-      ? {}
-      : {
-          ssl: {
-            require: true,
-            rejectUnauthorized: false,
-          },
-        },
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+    authPlugins: {
+      caching_sha2_password: () =>
+        require("mysql2/lib/auth/caching_sha2_password"),
+    },
+  },
 });
 export const Rate = rateModel(sequelize, DataTypes);
 export const RateLike = ratelikeModel(sequelize, DataTypes);
