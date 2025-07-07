@@ -19,6 +19,13 @@ document
       return;
     }
 
+    const today = new Date();
+    const birthdateDate = new Date(birthdate);
+    if (birthdateDate > today) {
+      alert("A data de nascimento não pode ser no futuro!");
+      return;
+    }
+
     try {
       await axios.post("http://localhost:8000/api/register", {
         firstName,
@@ -32,6 +39,7 @@ document
       alert("Cadastro realizado com sucesso!");
       window.location.href = "login";
     } catch (err) {
-      alert("Erro ao cadastrar: " + (err.response?.data?.error || err.message));
+      const errorMessage = err.response?.data?.error || err.message || "Erro desconhecido ao cadastrar.";
+      alert("Erro ao cadastrar: " + errorMessage);
     }
   });
