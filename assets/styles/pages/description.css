@@ -159,14 +159,6 @@ body::before {
   transition: 0.5s;
 }
 
-.comment {
-  background-color: #2a2a2a;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  color: #ddd;
-}
-
 .comment-header {
   display: flex;
   align-items: center;
@@ -188,15 +180,22 @@ body::before {
 .comment-body {
   margin-bottom: 10px;
 }
+.comment-actions button,
+span {
+  font-size: 0.9rem;
+  color: #aaa;
+  cursor: pointer;
+}
 
 .comment-actions button {
   background: none;
   border: none;
-  color: #aaa;
-  cursor: pointer;
   margin-right: 10px;
 }
-
+.comment-actions button:hover {
+  text-decoration: underline;
+  color: #fff;
+}
 .reply-box {
   margin-top: 10px;
   display: flex;
