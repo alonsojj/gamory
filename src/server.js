@@ -3,10 +3,9 @@ import userRouter from "./routes/userRouter.js";
 import authRouter from "./routes/authRouter.js";
 import rateRouter from "./routes/rateRouter.js";
 import gameRouter from "./routes/gameRouter.js";
+import frontRouter from "./routes/frontRouter.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url";
 
 import { connect } from "./database/conn.js";
 const app = express();
@@ -24,36 +23,7 @@ app.use("/api/user", userRouter);
 app.use("/api/rate", rateRouter);
 app.use("/api/games", gameRouter);
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-app.use(
-  "/assets",
-  express.static(path.join(__dirname, "../../gamory-site/assets"))
-);
-app.get("/login", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../gamory-site/pages/login.html"));
-});
-
-app.get("/perfil", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../gamory-site/pages/perfil.html"));
-});
-
-app.get("/home", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../gamory-site/pages/home.html"));
-});
-
-app.get("/cadastro", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../gamory-site/pages/cadastro.html"));
-});
-app.get("/game", (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "../../gamory-site/pages/description.html")
-  );
-});
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../gamory-site/index.html"));
-});
+app.use("/", frontRouter);
 
 connect();
 app.listen(8000, () => console.log("Servidor ligado"));
