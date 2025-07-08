@@ -18,7 +18,11 @@ export const createFriendship = async (req, res) => {
       },
     });
     if (existingFriendship) {
-      return res.status(400).json({ error: "A pending friendship request already exists with this user." });
+      return res
+        .status(400)
+        .json({
+          error: "A pending friendship request already exists with this user.",
+        });
     }
     await Friend.create({ userId, friendId, status: "pending" });
     res.status(201).json({ message: "Friendship request sent" });

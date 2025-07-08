@@ -54,12 +54,18 @@ document.addEventListener("DOMContentLoaded", () => {
       gameResultsGrid.innerHTML = games
         .map(
           (game) =>
-            `<a class="game-card" href="games/"${game.id}>
+            `<a class="game-card" href="/game?id=${game.id}">
               <img src="${
-                game.coverUrl || "https://via.placeholder.com/150"
+                game.coverUrl || "/assests/image/profile/default_profile.jpg"
               }" alt="${game.name}">
               <h3>${game.name}</h3>
-              ${game.averageRating !== undefined && game.averageRating !== null ? `<p>Avaliação Média: ${game.averageRating} (${game.totalRatings || 0} avaliações)</p>` : ''}
+              ${
+                game.averageRating !== undefined && game.averageRating !== null
+                  ? `<p>Avaliação Média: ${game.averageRating} (${
+                      game.totalRatings || 0
+                    } avaliações)</p>`
+                  : ""
+              }
             </a>`
         )
         .join("");
@@ -74,9 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
         .map(
           (user) =>
             `<li>
-              <a href="user/${user.id}">
+              <a href="perfil?id=${user.id}">
               <img src="${
-                user.profileImg || "https://via.placeholder.com/50"
+                user.profileImg || "/assests/image/profile/default_profile.jpg"
               }" alt="${user.nickname}">
               <span>${user.nickname}</span>
               </a>
