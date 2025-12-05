@@ -9,14 +9,21 @@ let accessToken = null;
 
 const authenticate = async () => {
   try {
-    const response = await axios.post(
-      `${TWITCH_AUTH_URL}?client_id=${auth.clientId}&client_secret=${auth.clientSecret}&grant_type=client_credentials`
-    );
+    const body = `client_id=${auth.clientId}&client_secret=${auth.clientSecret}&grant_type=client_credentials`;
+
+    const response = await axios.post(TWITCH_AUTH_URL, body, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
     accessToken = response.data.access_token;
-    console.log("Access Token:", accessToken);
+    console.log("Successfully authenticated with Twitch API.");
     return accessToken;
   } catch (error) {
-    console.error("Failed to authenticate with Twitch API:", error.message);
+    console.error(
+      "Failed to authenticate with Twitch API:",
+      error.response ? error.response.data : error.message
+    );
     throw error;
   }
 };
