@@ -31,6 +31,7 @@ const authenticate = async () => {
 const getHeaders = () => ({
   "Client-ID": auth.clientId,
   Authorization: `Bearer ${accessToken}`,
+  "Content-Type": "text/plain",
 });
 
 export const searchGames = async ({ name, id, limit }) => {
@@ -81,7 +82,7 @@ export const searchGames = async ({ name, id, limit }) => {
   }
 };
 
-export const getPopularGames = async (limit) => {
+export const getPopularGames = async (limit = 10) => {
   if (!accessToken) {
     await authenticate();
   }
@@ -101,7 +102,7 @@ export const getPopularGames = async (limit) => {
     if (error.response?.status === 401) {
       console.warn("Access token expired. Re-authenticating...");
       await authenticate();
-      return getPopularGames();
+      return getPopularGames(limit);
     }
     console.error("Failed to fetch popular games from IGDB:", error.message);
 
