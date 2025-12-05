@@ -6,10 +6,10 @@ import friendModel from "../models/friend.model.js";
 import ratelikeModel from "../models/ratelike.model.js";
 import gameRatingSummaryModel from "../models/gameRatingSummary.model.js";
 
-const sequelize = new Sequelize(db.database, db.username, db.password, {
-  host: db.host,
+let sequelize;
+
+const sequelizeOptions = {
   dialect: db.dialect,
-  port: db.port,
   logging: db.env == "development" ? false : console.log,
   dialectOptions:
     db.env == "development"
@@ -20,7 +20,17 @@ const sequelize = new Sequelize(db.database, db.username, db.password, {
             rejectUnauthorized: false,
           },
         },
-});
+};
+
+if (db.databaseUrl) {
+  sequelize = new Sequelize(db.databaseUrl, sequelizeOptions);
+} else {
+  sequelize = new Sequelize(db.database, db.username, db.password, {
+    ...sequelizeOptions,
+    host: db.host,
+    port: db.port,
+  });
+}
 export const Rate = rateModel(sequelize, DataTypes);
 export const RateLike = ratelikeModel(sequelize, DataTypes);
 export const User = userModel(sequelize, DataTypes);
