@@ -109,7 +109,7 @@ async function initPopularGames() {
   const carousel = document.querySelector("#popular-container");
   try {
     let games = [];
-    const res = await fetch(`http://localhost:8000/api/games/popular?limit=30`);
+    const res = await fetch(`/api/games/popular?limit=30`);
     if (!res.ok) throw new Error("Erro ao buscar jogos populares");
     games = await res.json();
     carouselState[carousel.id].games = games;
@@ -125,7 +125,7 @@ async function initUpcomingGames() {
   try {
     let games = [];
     const res = await fetch(
-      `http://localhost:8000/api/games/upcoming?limit=30`
+      `/api/games/upcoming?limit=30`
     );
     if (!res.ok) throw new Error("Erro ao buscar jogos populares");
     games = await res.json();
@@ -141,7 +141,7 @@ async function initRecentlyRatedGames() {
   const carousel = document.querySelector("#recently-rated-container");
   try {
     let games = [];
-    const res = await fetch(`http://localhost:8000/api/games/recently-rated`);
+    const res = await fetch(`/api/games/recently-rated`);
     if (!res.ok) throw new Error("Erro ao buscar jogos recentemente avaliados");
     games = await res.json();
     carouselState[carousel.id].games = games;

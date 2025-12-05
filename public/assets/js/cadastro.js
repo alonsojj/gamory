@@ -27,7 +27,7 @@ document
     }
 
     try {
-      await axios.post("http://localhost:8000/api/register", {
+      await axios.post("/api/register", {
         firstName,
         lastName,
         birthdate,

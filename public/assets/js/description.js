@@ -99,7 +99,7 @@ function addLikeAndReplyListeners(commentEl) {
           rateUserId
         );
         const resp = await fetch(
-          `http://localhost:8000/api/rate/${gameId}/like`,
+          `/api/rate/${gameId}/like`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -162,7 +162,7 @@ function initReviewButton() {
       if (!id) return;
       if (currentRating >= 0 && currentRating <= 5) {
         try {
-          const resp = await fetch(`http://localhost:8000/api/rate/${id}`, {
+          const resp = await fetch(`/api/rate/${id}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -179,7 +179,7 @@ function initReviewButton() {
             const userId = getCurrentUserId();
             try {
               const response = await axios.get(
-                `http://localhost:8000/api/user/${userId}?friendship=true`,
+                `/api/user/${userId}?friendship=true`,
                 {
                   withCredentials: true,
                 }
@@ -224,7 +224,7 @@ async function loadGameAndComments() {
     return;
   }
   try {
-    const res = await fetch(`http://localhost:8000/api/games?id=${id}`);
+    const res = await fetch(`/api/games?id=${id}`);
     if (!res.ok) throw new Error("Jogo não encontrado");
     const data = await res.json();
     const game = Array.isArray(data) ? data[0] : data;
@@ -238,7 +238,7 @@ async function loadGameAndComments() {
     if (game.bannerUrl) {
       document.body.style.background = `url('${game.bannerUrl}') no-repeat center center/cover`;
     }
-    const rateRes = await fetch(`http://localhost:8000/api/rate?gameId=${id}`);
+    const rateRes = await fetch(`/api/rate?gameId=${id}`);
     if (rateRes.ok) {
       const ratings = await rateRes.json();
       const commentsList = document.getElementById("commentsList");

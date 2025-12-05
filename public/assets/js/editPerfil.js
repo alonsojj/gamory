@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   async function fetchUserData() {
     try {
-      const response = await axios.get("http://localhost:8000/api/user/me", {
+      const response = await axios.get("/api/user/me", {
         withCredentials: true,
       });
       const user = response.data;
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (Object.keys(updatedFields).length > 0) {
       try {
         const response = await axios.put(
-          "http://localhost:8000/api/user/me",
+          "/api/user/me",
           updatedFields,
           {
             withCredentials: true,
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (oldPassword && newPassword) {
       try {
         const response = await axios.put(
-          "http://localhost:8000/api/user/me/password",
+          "/api/user/me/password",
           { oldPassword, newPassword },
           {
             withCredentials: true,

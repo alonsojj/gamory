@@ -14,7 +14,7 @@ searchInput.addEventListener("input", function () {
   debounceTimeout = setTimeout(async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/api/games?name=${encodeURIComponent(query)}`
+        `/api/games?name=${encodeURIComponent(query)}`
       );
       const games = res.data;
       if (Array.isArray(games) && games.length > 0) {

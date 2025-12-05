@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  fetch("http://localhost:8000/api/user/me", { credentials: "include" })
+  fetch("/api/user/me", { credentials: "include" })
     .then((res) => {
       if (res.status === 200) {
         window.location.href = "/home";
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/login",
+        "/api/login",
         {
           email,
           password,
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
           );
         } else {
           try {
-            const me = await axios.get("http://localhost:8000/api/user/me", {
+            const me = await axios.get("/api/user/me", {
               withCredentials: true,
             });
             if (me.data && me.data.userId) {

@@ -32,13 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
   async function fetchResults(query) {
     try {
       const gamesRes = await axios.get(
-        `http://localhost:8000/api/games?name=${encodeURIComponent(query)}`
+        `/api/games?name=${encodeURIComponent(query)}`
       );
       const games = gamesRes.data;
       displayGames(games);
 
       const usersRes = await axios.get(
-        `http://localhost:8000/api/user?nickname=${encodeURIComponent(query)}`
+        `/api/user?nickname=${encodeURIComponent(query)}`
       );
       const users = usersRes.data;
       displayUsers(users);

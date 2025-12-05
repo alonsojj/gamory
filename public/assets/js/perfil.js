@@ -77,7 +77,7 @@ function renderAmigos(user) {
       aceitarBtn.onclick = async (e) => {
         e.stopPropagation();
         await axios.put(
-          "http://localhost:8000/api/user/me/friendships",
+          "/api/user/me/friendships",
           { friendId: amigo.id, status: "accepted" },
           { withCredentials: true }
         );
@@ -89,7 +89,7 @@ function renderAmigos(user) {
       rejeitarBtn.onclick = async (e) => {
         e.stopPropagation();
         await axios.put(
-          "http://localhost:8000/api/user/me/friendships",
+          "/api/user/me/friendships",
           { friendId: amigo.id, status: "rejected" },
           { withCredentials: true }
         );
@@ -134,7 +134,7 @@ function renderAmigos(user) {
 async function fetchUser(userId) {
   try {
     const response = await axios.get(
-      `http://localhost:8000/api/user/${userId}?friendship=true`,
+      `/api/user/${userId}?friendship=true`,
       {
         withCredentials: true,
       }
@@ -151,7 +151,7 @@ async function fetchUserRatedGames(userId) {
   try {
     if (!userId) return [];
     const response = await axios.get(
-      `http://localhost:8000/api/rate?userId=${userId}&expand=game`,
+      `/api/rate?userId=${userId}&expand=game`,
       { withCredentials: true }
     );
     return response.data;
@@ -164,7 +164,7 @@ async function fetchUserRatedGames(userId) {
 async function addFriend(friendId) {
   try {
     await axios.post(
-      "http://localhost:8000/api/user/me/friendships",
+      "/api/user/me/friendships",
       { friendId },
       { withCredentials: true }
     );
