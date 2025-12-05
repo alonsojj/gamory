@@ -12,9 +12,17 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+const allowedOrigins = [
+  "http://localhost:8000",
+  "http://197.168.15.127:8080",
+];
+if (process.env.FRONTEND_URL) {
+  allowedOrigins.push(process.env.FRONTEND_URL);
+}
+
 app.use(
   cors({
-    origin: ["http://localhost:8000", "http://197.168.15.127:8080"],
+    origin: allowedOrigins,
     credentials: true,
   })
 );
@@ -26,4 +34,6 @@ app.use("/api/games", gameRouter);
 app.use("/", frontRouter);
 
 connect();
-app.listen(8000, () => console.log("Servidor ligado"));
+
+const port = process.env.PORT || 8000;
+app.listen(port, () => console.log(`Servidor ligado na porta ${port}`));
