@@ -44,21 +44,22 @@ export const searchGames = async ({ name, id, limit }) => {
 
   let body;
   if (name) {
-    body = `fields id, name, genres.name, platforms.name, summary, cover.image_id, artworks.image_id, category; search "${name}"; where category = 0; limit ${limit};`;
+    body = `fields id, name, genres.name, platforms.name, summary, cover.image_id, artworks.image_id, game_type; search "${name}"; limit ${limit};`;
   } else if (id) {
+    if (Array.isArray(id) && id.length === 0) {
+      throw new Error("The 'id' array cannot be empty when searching by ID.");
+    }
     const idList = Array.isArray(id) ? `(${id.join(",")})` : id;
-    body = `fields id, name, genres.name, platforms.name, summary, cover.image_id, artworks.image_id, category; where id = ${idList} & category = 0;`;
+    body = `fields id, name, genres.name, platforms.name, summary, cover.image_id, artworks.image_id, game_type; where id = ${idList} & game_type = 0;`;
   } else {
     throw new Error("Provide either 'name' or 'id' to search");
   }
 
   try {
-    const response = await axios.post(`${IGDB_BASE_URL}/games`, body, {
-      headers: getHeaders(),
-    });
-
-    const games = response.data.map((game) => ({
-      ...game,
+            const response = await axios.post(`${IGDB_BASE_URL}/games`, body, {
+              headers: getHeaders(),
+            });
+            const games = response.data.map((game) => ({      ...game,
       coverUrl: game.cover
         ? `${IMAGE_BASE_URL}t_cover_big/${game.cover.image_id}.jpg`
         : null,
@@ -86,7 +87,7 @@ export const getPopularGames = async (limit = 10) => {
   if (!accessToken) {
     await authenticate();
   }
-  const body = `fields id, name, cover.image_id; where category = 0 & total_rating_count > 0; sort total_rating_count desc; limit ${limit};`;
+  const body = `fields id, name, cover.image_id; where game_type = 0 & rating_count > 0; sort rating_count desc; limit ${limit};`;
   try {
     const response = await axios.post(`${IGDB_BASE_URL}/games`, body, {
       headers: getHeaders(),
@@ -115,26 +116,23 @@ export const getUpcomingGames = async (limit = 10) => {
     await authenticate();
   }
 
-  const currentTimestamp = Math.floor(Date.now() / 1000);
+      const currentTimestamp = Math.floor(Date.now() / 1000);
   const sixMonthsFromNow = currentTimestamp + 15768000;
 
   const body = `
     fields id, name, first_release_date, cover.image_id, summary;
-    where category = 0 & 
+    where game_type = 0 & 
           first_release_date != null & 
           first_release_date >= ${currentTimestamp} & 
           first_release_date <= ${sixMonthsFromNow};
     sort first_release_date asc;
     limit ${limit};
   `;
-
   try {
-    const response = await axios.post(`${IGDB_BASE_URL}/games`, body, {
-      headers: getHeaders(),
-    });
-
-    return response.data.map((game) => ({
-      id: game.id,
+            const response = await axios.post(`${IGDB_BASE_URL}/games`, body, {
+              headers: getHeaders(),
+            });
+            return response.data.map((game) => ({      id: game.id,
       name: game.name,
       releaseDate: game.first_release_date
         ? new Date(game.first_release_date * 1000).toLocaleDateString()

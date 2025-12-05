@@ -59,6 +59,9 @@ export const getRecentlyRatedGamesController = async (req, res) => {
   if (limit > MAX_LIMIT) return res.status(400).json({ error: `Max limit is ${MAX_LIMIT}` });
   try {
     const gameIds = await getRecentlyRatedGamesId(limit);
+    if (gameIds.length === 0) {
+      return res.status(200).json([]);
+    }
     const games = await searchGames({ id: gameIds });
     res.status(200).json(games);
   } catch (error) {
